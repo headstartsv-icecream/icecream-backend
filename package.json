@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "repository": "https://github.com/headstartsv-icecream/icecream-backend.git",
   "author": "headfirstsv-icream",
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "engines": {
     "node": ">=14.5.0"
   },
