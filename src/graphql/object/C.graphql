@@ -1,0 +1,8 @@
+scalar DateTime
+
+type C {
+  id: ID!
+  creationDate: DateTime!
+  name: String!
+  age: Int!
+}

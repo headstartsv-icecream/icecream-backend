@@ -1,0 +1,8 @@
+input CCreationInput {
+  name: String!
+  age: Int!
+}
+
+type Mutation {
+  createC(input: CCreationInput!): C!
+}
