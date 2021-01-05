@@ -1,12 +1,12 @@
 FROM node:15.5
 
-COPY ./package*.json /app/
-
+RUN mkdir /app
 WORKDIR /app
 
-COPY . /app
+COPY ./package.json ./yarn.lock /app/
+COPY ./dist /app/dist
 
-RUN yarn && yarn build
+RUN yarn install --production
 
 EXPOSE 4000
 
