@@ -1,10 +1,11 @@
-FROM node:15.5
+FROM node:14-alpine
 
-RUN mkdir /app
+ENV NODE_ENV=production
+
 WORKDIR /app
 
-COPY ./package.json ./yarn.lock /app/
-COPY ./dist /app/dist
+COPY ["./package.json", "./yarn.lock", "./"]
+COPY "./dist" "./dist"
 
 RUN yarn install --production
 
