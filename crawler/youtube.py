@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 # Add modules in common/functions.py
 sys.path.append(os.getcwd())
 
@@ -20,7 +21,7 @@ visible = EC.visibility_of_element_located
 time.sleep(1)
 
 search = driver.find_element_by_xpath('//input[@id="search"]')
-video = 'gracie abrams 21'
+video = "gracie abrams 21"
 search.send_keys(video)
 time.sleep(1)
 
@@ -42,24 +43,24 @@ html_source = driver.page_source
 
 driver.close()
 
-soup = BeautifulSoup(html_source, 'lxml')
+soup = BeautifulSoup(html_source, "lxml")
 
-youtube_user_IDs = soup.select('div#header-author > a > span')
-youtube_comments = soup.select('yt-formatted-string#content-text')
+youtube_user_IDs = soup.select("div#header-author > a > span")
+youtube_comments = soup.select("yt-formatted-string#content-text")
 
 str_youtube_userIDs = []
 str_youtube_comments = []
 for i in range(len(youtube_user_IDs)):
     str_tmp = str(youtube_user_IDs[i].text)
-    str_tmp = str_tmp.replace('\n', '')
-    str_tmp = str_tmp.replace('\t', '')
-    str_tmp = str_tmp.replace(' ','')
+    str_tmp = str_tmp.replace("\n", "")
+    str_tmp = str_tmp.replace("\t", "")
+    str_tmp = str_tmp.replace(" ", "")
     str_youtube_userIDs.append(str_tmp)
 
     str_tmp = str(youtube_comments[i].text)
-    str_tmp = str_tmp.replace('\n', '')
-    str_tmp = str_tmp.replace('\t', '')
-    str_tmp = str_tmp.replace(' ', '')
+    str_tmp = str_tmp.replace("\n", "")
+    str_tmp = str_tmp.replace("\t", "")
+    str_tmp = str_tmp.replace(" ", "")
 
     str_youtube_comments.append(str_tmp)
 
@@ -68,6 +69,7 @@ for i in range(len(youtube_user_IDs)):
 
 import pandas as pd
 
-pd_data = {"ID":str_youtube_userIDs, "Comment":str_youtube_comments}
+
+pd_data = {"ID": str_youtube_userIDs, "Comment": str_youtube_comments}
 youtube_pd = pd.DataFrame(pd_data)
 print(youtube_pd)
