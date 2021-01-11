@@ -4,8 +4,8 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY ["./package.json", "./yarn.lock", "./"]
-COPY "./dist" "./dist"
+COPY ["./backend/package.json", "./backend/yarn.lock", "./"]
+COPY "./backend/dist" "./dist"
 
 RUN yarn install --production
 
