@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "4000:4000"
+  
+  crawler:
+    build:
+      context: .
+      dockerfile: ./crawler/Dockerfile
+    ports:
+      - "5000:5000"
