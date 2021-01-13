@@ -251,5 +251,5 @@ dmypy.json
 .prof
 
 # ChromeDriver
-chromedriver
+chromedriver*
 
