@@ -25,23 +25,27 @@ search.send_keys(song)
 search.send_keys(Keys.ENTER)
 time.sleep(1)
 driver.find_element_by_xpath('//*[@id="frm_songList"]/div/table/tbody/tr[1]/td[3]/div/div/a[1]/span').click()
-time.sleep(1)
 driver.find_element_by_xpath('//*[@id="d_cmtpgn_cmt_count_wrapper"]/ul/li[2]/a').click()
 
-num_of_pagedowns = 1
-while num_of_pagedowns:
-    driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
-    time.sleep(2.0)
-    new_page_height = driver.execute_script("return document.documentElement.scrollHeight")
-    num_of_pagedowns -= 1
+driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
+time.sleep(2.0)
+new_page_height = driver.execute_script("return document.documentElement.scrollHeight")
 html_source = driver.page_source
 
+soup = BeautifulSoup(html_source, 'lxml')
+melon_user_IDs = soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
+melon_comments = soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')
+
+driver.find_element_by_xpath('//*[@id="d_cmtpgn_paginate_wrapper"]/span/a[1]').click()
+driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
+time.sleep(2.0)
+new_page_height = driver.execute_script("return document.documentElement.scrollHeight")
+html_source = driver.page_source
 driver.close()
 
 soup = BeautifulSoup(html_source, 'lxml')
-
-melon_user_IDs = soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
-melon_comments = soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')
+melon_user_IDs += soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
+melon_comments += soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')
 
 str_melon_userIDs = []
 str_melon_comments = []
