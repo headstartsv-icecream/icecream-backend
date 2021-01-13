@@ -20,7 +20,7 @@ visible = EC.visibility_of_element_located
 time.sleep(1)
 
 search = driver.find_element_by_xpath('//input[@id="top_search"]')
-song = 'gracie abrams 21'
+song = 'DPR LIVE TEXT ME'
 search.send_keys(song)
 search.send_keys(Keys.ENTER)
 time.sleep(1)
@@ -55,10 +55,10 @@ for i in range(0,len(melon_comments),2):
     str_tmp = str(melon_comments[i].text)
     str_tmp = str_tmp.replace('\n', '')
     str_tmp = str_tmp.replace('\t', '')
+    str_tmp = str_tmp.replace('내용','')
     str_melon_comments.append(str_tmp)
 
-for i in range(len(melon_user_IDs)):
-    print(str_melon_userIDs[i], str_melon_comments[i])
+import pandas as pd
 
 pd_data = {"ID":str_melon_userIDs, "Comment":str_melon_comments}
 youtube_pd = pd.DataFrame(pd_data)
