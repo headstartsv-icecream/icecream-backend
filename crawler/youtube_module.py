@@ -33,9 +33,12 @@ def find_comment(html_source):
         str_tmp = str_tmp.strip()
 
         str_youtube_comments.append(str_tmp)
+    print("댓글 갯수: ",len(str_youtube_userIDs))
     pd_data = {"ID":str_youtube_userIDs, "Comment":str_youtube_comments}
     youtube_pd = pd.DataFrame(pd_data)
     return youtube_pd
+
+
 
 def search_music(video):
     driver = ChromeDriver(headless=False).driver
@@ -59,48 +62,22 @@ def search_music(video):
 
     # 스크롤 내려서 댓글 불러오기
     driver.execute_script("window.scrollTo(0,100);")
-    time.sleep(2) # 1초:6개 / 2초:16개 / 2.2초: 20개 / 2.5초:20개 / 3초:20개
+    time.sleep(3) # 2초 설정시 못가져오는 경우 있음
     
     last_page_height = driver.execute_script("return document.documentElement.scrollHeight")
+    
+    maximum_comment = 0
     while True:
         driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
-        time.sleep(1)
+        time.sleep(3) # 2초 설정시 못가져오는 경우 있음
         new_page_height = driver.execute_script("return document.documentElement.scrollHeight")
-        if new_page_height == last_page_height:
+        if new_page_height == last_page_height or maximum_comment > 2: # maximum_comment: 댓글 최대 개수 설정
             break
         last_page_height = new_page_height
+        maximum_comment += 1
 
     # html 저장 후 드라이버 닫기
     html_source = driver.page_source
     driver.close()
 
     return html_source
-
-"""
-
-# 여기부터 MySQL 저장
-import pymysql
-from sqlalchemy import create_engine
-
-pymysql.install_as_MySQLdb()
-import MySQLdb
-
-engine = create_engine("mysql://root:"+"1234"+"@localhost/opentutorials", encoding='utf-8')
-# mysql://"아이디:"+"비밀번호"+"@mysql주소:포트/DB이름
-
-conn = engine.connect()
-
-youtube_pd.to_sql(name='test',con=engine, if_exists='append', index=False)
-# (name=테이블이름, con=engine, if_exists='append', index=False)
-
-conn.close() """
-
-
-
-"""
-CREATE TABLE `opentutorials`.`test` (
-  `ID` VARCHAR(50) NOT NULL,
-  `Comment` TEXT NULL,
-  PRIMARY KEY (`ID`));
- 테이블 생성 필요
- """

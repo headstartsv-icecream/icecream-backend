@@ -1,4 +1,32 @@
 import youtube_module
+import time
 
-html = youtube_module.search_music('빈지노-Aquaman')
-print(youtube_module.find_comment(html))
+html = youtube_module.search_music('DPR LIVE - Jasmine')
+data = youtube_module.find_comment(html)
+
+
+
+# 여기부터 MySQL 저장
+import pymysql
+from sqlalchemy import create_engine
+
+pymysql.install_as_MySQLdb()
+import MySQLdb
+
+engine = create_engine("mysql://root:"+"1234"+"@localhost/opentutorials", encoding='utf-8')
+# "mysql://아이디:"+"비밀번호"+"@mysql주소:포트/DB이름"
+
+conn = engine.connect()
+
+data.to_sql(name='test',con=engine, if_exists='append', index=False)
+# (name=테이블이름, con=engine, if_exists='append', index=False)
+
+conn.close()
+
+"""
+CREATE TABLE `opentutorials`.`test` (
+  `ID` TEXT NOT NULL,
+  `Comment` TEXT NULL,
+);
+ 테이블 생성 필요
+ """
