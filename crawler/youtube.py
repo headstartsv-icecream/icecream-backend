@@ -1,8 +1,11 @@
 import youtube_module
-import time
+import melon_module
 
-html = youtube_module.search_music('DPR LIVE - Jasmine')
+
+song = '혁오-love ya!'
+html = youtube_module.search_music(song)
 data = youtube_module.find_comment(html)
+data2 = melon_module.melon_crawling(song)
 
 
 
@@ -19,9 +22,14 @@ engine = create_engine("mysql://root:"+"1234"+"@localhost/opentutorials", encodi
 conn = engine.connect()
 
 data.to_sql(name='test',con=engine, if_exists='append', index=False)
+data2.to_sql(name='test',con=engine, if_exists='append', index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
+sql = 'select * from test'
+
 conn.close()
+
+
 
 """
 CREATE TABLE `opentutorials`.`test` (
