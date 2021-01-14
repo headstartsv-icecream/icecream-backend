@@ -34,7 +34,7 @@ def melon_crawling(song):
     melon_comments = soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')
     time.sleep(1)
 
-    for i in range(1,5):
+    for i in range(1,10):
         driver.find_element_by_xpath('//*[@id="d_cmtpgn_paginate_wrapper"]/span/a[%d]'%i).click() # 댓글이동
         html_source = driver.page_source
         
@@ -59,6 +59,7 @@ def melon_crawling(song):
         str_tmp = str_tmp.replace('내용','')
         str_melon_comments.append(str_tmp)
     
+    print("melon 가져온 댓글 갯수: ",len(str_melon_userIDs))
     pd_data = {"ID":str_melon_userIDs, "Comment":str_melon_comments}
     melone_pd = pd.DataFrame(pd_data)
     

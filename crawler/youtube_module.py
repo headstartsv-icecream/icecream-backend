@@ -33,7 +33,7 @@ def find_comment(html_source):
         str_tmp = str_tmp.strip()
 
         str_youtube_comments.append(str_tmp)
-    print("댓글 갯수: ",len(str_youtube_userIDs))
+    print("youtube 가져온 댓글 갯수: ",len(str_youtube_userIDs))
     pd_data = {"ID":str_youtube_userIDs, "Comment":str_youtube_comments}
     youtube_pd = pd.DataFrame(pd_data)
     return youtube_pd
@@ -61,7 +61,7 @@ def search_music(video):
     time.sleep(3)
 
     # 스크롤 내려서 댓글 불러오기
-    driver.execute_script("window.scrollTo(0,100);")
+    driver.execute_script("window.scrollTo(0,500);")
     time.sleep(3) # 2초 설정시 못가져오는 경우 있음
     
     last_page_height = driver.execute_script("return document.documentElement.scrollHeight")
