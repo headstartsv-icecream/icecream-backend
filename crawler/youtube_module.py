@@ -16,25 +16,26 @@ def find_comment(html_source):
 
     youtube_user_IDs = soup.select('div#header-author > a > span')
     youtube_comments = soup.select('yt-formatted-string#content-text')
+    youtube_date = soup.select('div#header-author > yt-formatted-string')
 
     str_youtube_userIDs = []
     str_youtube_comments = []
+    str_youtube_date = []
     for i in range(len(youtube_user_IDs)):
         str_tmp = str(youtube_user_IDs[i].text)
-        str_tmp = str_tmp.replace('\n', '')
-        str_tmp = str_tmp.replace('\t', '')
         str_tmp = str_tmp.strip()
-    
         str_youtube_userIDs.append(str_tmp)
 
         str_tmp = str(youtube_comments[i].text)
         str_tmp = str_tmp.replace('\n', ' ')
         str_tmp = str_tmp.replace('\t', '')
         str_tmp = str_tmp.strip()
-
         str_youtube_comments.append(str_tmp)
+
+        str_youtube_date.append(str(youtube_date[i].text))
+
     print("youtube 가져온 댓글 갯수: ",len(str_youtube_userIDs))
-    pd_data = {"ID":str_youtube_userIDs, "Comment":str_youtube_comments}
+    pd_data = {"ID":str_youtube_userIDs, "Comment":str_youtube_comments,"Date":str_youtube_date, "Source":'youtube'}
     youtube_pd = pd.DataFrame(pd_data)
     return youtube_pd
 

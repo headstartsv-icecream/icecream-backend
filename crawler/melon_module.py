@@ -32,6 +32,7 @@ def melon_crawling(song):
     soup = BeautifulSoup(html_source, 'lxml')
     melon_user_IDs = soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
     melon_comments = soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')
+    melon_date = soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > span.date')
     time.sleep(1)
 
     for i in range(1,10):
@@ -41,15 +42,15 @@ def melon_crawling(song):
         soup = BeautifulSoup(html_source, 'lxml')
         melon_user_IDs += soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
         melon_comments += soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')    
+        melon_date += soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > span.date')
 
     driver.close()
 
     str_melon_userIDs = []
     str_melon_comments = []
+    str_melon_date = []
     for i in range(len(melon_user_IDs)):
         str_tmp = str(melon_user_IDs[i].text)
-        str_tmp = str_tmp.replace('\n', '')
-        str_tmp = str_tmp.replace('\t', '')
         str_melon_userIDs.append(str_tmp)
 
     for i in range(0,len(melon_comments),2):
@@ -58,9 +59,13 @@ def melon_crawling(song):
         str_tmp = str_tmp.replace('\t', '')
         str_tmp = str_tmp.replace('내용','')
         str_melon_comments.append(str_tmp)
+
+    for i in range(0,len(melon_date),1):
+        str_tmp = str(melon_date[i].text)
+        str_melon_date.append(str_tmp)
     
     print("melon 가져온 댓글 갯수: ",len(str_melon_userIDs))
-    pd_data = {"ID":str_melon_userIDs, "Comment":str_melon_comments}
+    pd_data = {"ID":str_melon_userIDs, "Comment":str_melon_comments, "Date":str_melon_date, "Source":'melon'}
     melone_pd = pd.DataFrame(pd_data)
     
     return melone_pd

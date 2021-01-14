@@ -28,13 +28,3 @@ data2.to_sql(name='test',con=engine, if_exists='append', index=False)
 sql = 'select * from test'
 
 conn.close()
-
-
-
-"""
-CREATE TABLE `opentutorials`.`test` (
-  `ID` TEXT NOT NULL,
-  `Comment` TEXT NULL,
-);
- 테이블 생성 필요
- """
