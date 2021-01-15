@@ -43,6 +43,7 @@ def melon_crawling(song):
         melon_user_IDs += soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
         melon_comments += soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')    
         melon_date += soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > span.date')
+        time.sleep(2)
 
     driver.close()
 
