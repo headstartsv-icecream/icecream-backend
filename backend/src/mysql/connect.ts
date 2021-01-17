@@ -1,6 +1,6 @@
-const mysql = require('mysql')
+import { createConnection } from 'mysql'
 
-const conn = mysql.createConnection({
+const conn = createConnection({
   host: 'localhost',
   user: 'root',
   password: '1234',

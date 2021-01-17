@@ -1153,6 +1153,13 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
   integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
 
+"@types/mysql@^2.15.17":
+  version "2.15.17"
+  resolved "https://registry.yarnpkg.com/@types/mysql/-/mysql-2.15.17.tgz#18b9a64b3c83916e768cf0c1bd7469f7ecbb7484"
+  integrity sha512-5vlnAFgdjFGqu3fHbd+pp+qL9mMty6c/N65TjsT5H+kfet50Qq4tXWMrD5lm/ftXeiEQwbAndZepB/eaLGaTew==
+  dependencies:
+    "@types/node" "*"
+
 "@types/node-fetch@2.5.7":
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.7.tgz#20a2afffa882ab04d44ca786449a276f9f6bbf3c"
