@@ -26,7 +26,8 @@
     "apollo-server-express": "^2.19.1",
     "dotenv": "^8.2.0",
     "graphql": "^15.4.0",
-    "graphql-scalars": "^1.7.0"
+    "graphql-scalars": "^1.7.0",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "@graphql-codegen/add": "^2.0.2",
