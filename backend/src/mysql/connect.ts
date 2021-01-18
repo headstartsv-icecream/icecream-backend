@@ -1,4 +1,3 @@
-import { createConnection } from 'mysql'
 import conn from './config/config'
 
 conn.connect()
