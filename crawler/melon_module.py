@@ -35,7 +35,11 @@ def melon_crawling(song):
     melon_date = soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > span.date')
     time.sleep(1)
 
-    for i in range(1,10):
+    # 댓글 개수에 따라 반복 횟수 설정
+    number_of_comments = int(soup.select_one('#d_cmtpgn_cmt_count_wrapper > div > strong > span').get_text())
+    repeat_num = 9 if number_of_comments > 100 else number_of_comments // 10
+
+    for i in range(1,repeat_num+1):
         driver.find_element_by_xpath('//*[@id="d_cmtpgn_paginate_wrapper"]/span/a[%d]'%i).click() # 댓글이동
         html_source = driver.page_source
         
@@ -43,7 +47,6 @@ def melon_crawling(song):
         melon_user_IDs += soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
         melon_comments += soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')    
         melon_date += soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > span.date')
-        time.sleep(2)
 
     driver.close()
 
