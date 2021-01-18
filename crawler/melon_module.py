@@ -37,6 +37,7 @@ def melon_crawling(song):
 
     # 댓글 개수에 따라 반복 횟수 설정
     number_of_comments = int(soup.select_one('#d_cmtpgn_cmt_count_wrapper > div > strong > span').get_text())
+    if number_of_comments % 10 == 0: number_of_comments -= 1
     repeat_num = 9 if number_of_comments > 100 else number_of_comments // 10
 
     for i in range(1,repeat_num+1):
