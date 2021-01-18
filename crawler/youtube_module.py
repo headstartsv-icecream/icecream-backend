@@ -72,6 +72,9 @@ def search_music(video):
     driver.get("https://www.youtube.com/results?search_query=" + str(video))
     wait.until(visible((By.ID, "video-title")))
     driver.find_element_by_id("video-title").click()
+    
+    # 영상 멈춤
+    driver.find_element_by_css_selector('#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button').click()
     time.sleep(3)
 
     # 스크롤 내려서 댓글 불러오기
