@@ -42,6 +42,7 @@ def melon_crawling(song):
 
     for i in range(1,repeat_num+1):
         driver.find_element_by_xpath('//*[@id="d_cmtpgn_paginate_wrapper"]/span/a[%d]'%i).click() # 댓글이동
+        time.sleep(1) # html을 온전히 불러오기 위한 대기
         html_source = driver.page_source
         
         soup = BeautifulSoup(html_source, 'lxml')
@@ -71,9 +72,9 @@ def melon_crawling(song):
     
     print("melon 가져온 댓글 갯수: ",len(str_melon_userIDs))
     pd_data = {"ID":str_melon_userIDs, "Comment":str_melon_comments, "Date":str_melon_date, "Source":'melon'}
-    melone_pd = pd.DataFrame(pd_data)
+    melon_pd = pd.DataFrame(pd_data)
     
-    return melone_pd
+    return melon_pd
 
 
 

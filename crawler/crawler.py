@@ -25,6 +25,4 @@ data.to_sql(name='test',con=engine, if_exists='append', index=False)
 data2.to_sql(name='test',con=engine, if_exists='append', index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
-sql = 'select * from test'
-
 conn.close()
