@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import pandas as pd
+import datetime
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -11,6 +12,25 @@ from common.functions import ChromeDriver
 
 # Add modules in common/functions.py
 sys.path.append(os.getcwd())
+
+# date 변경
+def exchange_date(date_time):
+    a = datetime.datetime.strptime(date_time,'%Y.%m.%d %H:%M')
+    b = datetime.datetime.today()
+    c = (b-a).total_seconds()
+    if c > 31104000:
+        d = str(int(c//31104000))+'년 전'
+    elif c > 2592000:
+        d = str(int(c//2592000))+'개월 전'
+    elif c > 86400:
+        d = str(int(c//86400))+'일 전'
+    elif c > 3600:
+        d = str(int(c//3600))+'시간 전'
+    elif c > 60:
+        d = str(int(c//60))+'분 전'
+    else:
+        d = '방금 전'
+    return d
 
 def melon_crawling(song):
     driver = ChromeDriver(headless=False).driver
@@ -68,6 +88,8 @@ def melon_crawling(song):
 
     for i in range(0,len(melon_date),1):
         str_tmp = str(melon_date[i].text)
+        str_tmp = str_tmp.strip()
+        str_tmp = exchange_date(str_tmp)
         str_melon_date.append(str_tmp)
     
     print("melon 가져온 댓글 갯수: ",len(str_melon_userIDs))
