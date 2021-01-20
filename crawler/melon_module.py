@@ -50,6 +50,15 @@ def melon_crawling(song):
     html_source = driver.page_source
 
     soup = BeautifulSoup(html_source, 'lxml')
+    
+    # 곡 제목
+    title = soup.select_one('#downloadfrm > div > div > div.entry > div.info > div.song_name').get_text()
+    title = title.replace('곡명','')
+    title = title.strip()
+
+    # 가수
+    singer = soup.select_one('#downloadfrm > div > div > div.entry > div.info > div.artist > a > span:nth-child(1)').get_text()
+
     melon_user_IDs = soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
     melon_comments = soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > div')
     melon_date = soup.select('div.wrap_cntt.d_cmtpgn_cmt_cont_wrapper > div > span.date')
@@ -84,6 +93,7 @@ def melon_crawling(song):
         str_tmp = str_tmp.replace('\n', '')
         str_tmp = str_tmp.replace('\t', '')
         str_tmp = str_tmp.replace('내용','')
+        str_tmp = str_tmp.strip()
         str_melon_comments.append(str_tmp)
 
     for i in range(0,len(melon_date),1):
@@ -93,10 +103,10 @@ def melon_crawling(song):
         str_melon_date.append(str_tmp)
     
     print("melon 가져온 댓글 갯수: ",len(str_melon_userIDs))
-    pd_data = {"ID":str_melon_userIDs, "Comment":str_melon_comments, "Date":str_melon_date, "Source":'melon'}
+    pd_data = {"Title":title,"Singer":singer,"ID":str_melon_userIDs, "Comment":str_melon_comments, "Date":str_melon_date, "Source":'melon'}
     melon_pd = pd.DataFrame(pd_data)
     
-    return melon_pd
+    return melon_pd, title, singer
 
 
 

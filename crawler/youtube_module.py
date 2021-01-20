@@ -24,7 +24,7 @@ def inspect_comment_respone(last_html_source, new_html_source):
     else:
         return 0
 
-def find_comment(html_source):
+def find_comment(html_source,title,singer):
     soup = BeautifulSoup(html_source, 'lxml')
 
     youtube_user_IDs = soup.select('div#header-author > a > span')
@@ -45,10 +45,10 @@ def find_comment(html_source):
         str_tmp = str_tmp.strip()
         str_youtube_comments.append(str_tmp)
 
-        str_youtube_date.append(str(youtube_date[i].text))
+        str_youtube_date.append(str(youtube_date[i].text).replace('(수정됨)', ''))
 
     print("youtube 가져온 댓글 갯수: ",len(str_youtube_userIDs))
-    pd_data = {"ID":str_youtube_userIDs, "Comment":str_youtube_comments,"Date":str_youtube_date, "Source":'youtube'}
+    pd_data = {"Title":title,"Singer":singer,"ID":str_youtube_userIDs, "Comment":str_youtube_comments,"Date":str_youtube_date, "Source":'youtube'}
     youtube_pd = pd.DataFrame(pd_data)
     return youtube_pd
 

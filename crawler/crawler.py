@@ -2,10 +2,10 @@ import youtube_module
 import melon_module
 
 
-song = '혁오-love ya!'
+song = '다비치 - 거북이'
+data2,title,singer = melon_module.melon_crawling(song)
 html = youtube_module.search_music(song)
-data = youtube_module.find_comment(html)
-data2 = melon_module.melon_crawling(song)
+data = youtube_module.find_comment(html,title,singer)
 
 
 
