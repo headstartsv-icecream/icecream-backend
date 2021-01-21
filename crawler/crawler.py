@@ -21,10 +21,10 @@ engine = create_engine("mysql://root:"+"1234"+"@localhost/opentutorials", encodi
 
 conn = engine.connect()
 
-data.to_sql(name='test',con=engine, if_exists='append', index=False)
-data2.to_sql(name='test',con=engine, if_exists='append', index=False)
+data.to_sql(name='comment',con=engine, if_exists='append', index=False)
+data2.to_sql(name='comment',con=engine, if_exists='append', index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
-sql = 'select * from test'
+sql = 'select * from comment'
 
 conn.close()
