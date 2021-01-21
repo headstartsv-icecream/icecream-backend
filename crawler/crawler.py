@@ -1,12 +1,12 @@
 import youtube_module
 import melon_module
-
+import information_module
 
 song = '혁오-love ya!'
 html = youtube_module.search_music(song)
 data = youtube_module.find_comment(html)
 data2 = melon_module.melon_crawling(song)
-
+data3 = information_module.find_inforamation(song)
 
 
 # 여기부터 MySQL 저장
@@ -23,6 +23,7 @@ conn = engine.connect()
 
 data.to_sql(name='test',con=engine, if_exists='append', index=False)
 data2.to_sql(name='test',con=engine, if_exists='append', index=False)
+data3.to_sql(name="info", con=engine, if_exists="append", index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
 sql = 'select * from test'
