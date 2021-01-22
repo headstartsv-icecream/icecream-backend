@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
+    container_name: mysql
     volumes:
       - ./mysql/db:/var/lib/mysql
     ports:
@@ -26,3 +27,7 @@ services:
       dockerfile: ./crawler/Dockerfile
     ports:
       - "5000:5000"
+    links:
+      - mysql:mysql
+    depends_on:
+      - mysql

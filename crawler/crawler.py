@@ -16,7 +16,7 @@ from sqlalchemy import create_engine
 pymysql.install_as_MySQLdb()
 import MySQLdb
 
-engine = create_engine("mysql://root:"+"1234"+"@localhost/app", encoding='utf-8')
+engine = create_engine("mysql://root:"+"1234"+"@10.178.0.2/app", encoding='utf-8')
 # "mysql://아이디:"+"비밀번호"+"@mysql주소:포트/DB이름"
 
 connect = engine.connect()

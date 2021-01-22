@@ -4,3 +4,4 @@ black
 lxml
 pandas
 pymysql
+sqlalchemy
