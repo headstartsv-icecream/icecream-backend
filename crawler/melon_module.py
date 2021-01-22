@@ -19,17 +19,19 @@ def exchange_date(date_time):
     b = datetime.datetime.today()
     c = (b-a).total_seconds()
     if c > 31104000:
-        d = str(int(c//31104000))+'년 전'
+        d = str(int(c//31104000))+' year ago'
     elif c > 2592000:
-        d = str(int(c//2592000))+'개월 전'
+        d = str(int(c//2592000))+' months ago'
+    elif c > 604800:
+        d = str(int(c//604800))+' week ago'
     elif c > 86400:
-        d = str(int(c//86400))+'일 전'
+        d = str(int(c//86400))+' days ago'
     elif c > 3600:
-        d = str(int(c//3600))+'시간 전'
+        d = str(int(c//3600))+' hour ago'
     elif c > 60:
-        d = str(int(c//60))+'분 전'
+        d = str(int(c//60))+' minutes ago'
     else:
-        d = '방금 전'
+        d = 'now'
     return d
 
 def melon_crawling(song):
