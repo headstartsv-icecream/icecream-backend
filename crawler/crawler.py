@@ -2,12 +2,12 @@ import youtube_module
 import melon_module
 
 
-song = '다비치 - 거북이'
-data2,title,singer = melon_module.melon_crawling(song)
-html = youtube_module.search_music(song)
+title = 'All I Wanna Do'
+singer = 'Jay park'
+
+html = youtube_module.search_music(title,singer)
 data = youtube_module.find_comment(html,title,singer)
-
-
+data2 = melon_module.melon_crawling(title,singer)
 
 # 여기부터 MySQL 저장
 import pymysql

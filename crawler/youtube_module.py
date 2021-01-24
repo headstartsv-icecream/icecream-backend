@@ -11,19 +11,6 @@ from common.functions import ChromeDriver
 # Add modules in common/functions.py  
 sys.path.append(os.getcwd())
 
-def inspect_comment_respone(last_html_source, new_html_source):
-    soup = BeautifulSoup(last_html_source, 'lxml')
-    last = soup.select('yt-formatted-string#content-text')
-
-
-    soup = BeautifulSoup(new_html_source, 'lxml')
-    new = soup.select('yt-formatted-string#content-text')
-
-    if last == new:
-        return 1
-    else:
-        return 0
-
 def find_comment(html_source,title,singer):
     soup = BeautifulSoup(html_source, 'lxml')
 
@@ -34,6 +21,7 @@ def find_comment(html_source,title,singer):
     str_youtube_userIDs = []
     str_youtube_comments = []
     str_youtube_date = []
+
     for i in range(len(youtube_user_IDs)):
         str_tmp = str(youtube_user_IDs[i].text)
         str_tmp = str_tmp.strip()
@@ -53,46 +41,46 @@ def find_comment(html_source,title,singer):
     return youtube_pd
 
 
-
-def search_music(video):
+def search_music(title,singer):
     driver = ChromeDriver(headless=False).driver
-    driver.get("https://www.youtube.com/")
-    wait = WebDriverWait(driver, 3)
-    visible = EC.visibility_of_element_located
-    time.sleep(1)
 
-    # 유튜브 검색창에 입력 후 엔터 입력
-    search = driver.find_element_by_xpath('//input[@id="search"]')
-    search.send_keys(video)
-    time.sleep(1)
-    search.send_keys(Keys.ENTER)
+    # EC 변수
+    wait = WebDriverWait(driver, 3) # 10초동안 대기. 대기 중 조건 만족하면 넘어간다.
+    visible = EC.visibility_of_element_located # DOM에 나타남, 웹에 보여야 조건 만족
+    element = EC.presence_of_element_located # DOM에 나타남, 웹에 안보여도 조건 만족
 
-
-    # 찾은 동영상으로 이동
-    driver.get("https://www.youtube.com/results?search_query=" + str(video))
-    wait.until(visible((By.ID, "video-title")))
+    # 찾는 동영상으로 이동
+    driver.get("https://www.youtube.com/results?search_query=" + str(singer+'+'+title))
+    wait.until(element((By.ID, "video-title")))
     driver.find_element_by_id("video-title").click()
     
     # 영상 멈춤
+    wait.until(element((By.ID, "movie_player"))) 
     driver.find_element_by_css_selector('#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button').click()
-    time.sleep(3)
 
     # 스크롤 내려서 댓글 불러오기
     driver.execute_script("window.scrollTo(0,500);")
-    time.sleep(3) # 2초 설정시 못가져오는 경우 있음
+    merch_shelf = False
+    
+    try:
+        wait.until(visible((By.XPATH, '//*[@id="merch-shelf"]/ytd-merch-shelf-renderer')))
+    except:
+        merch_shelf = True
+        print("상품 없음")
+    if(merch_shelf):
+        driver.execute_script("window.scrollTo(0,500);")
 
-    maximum_comment = 0
-    while True:
-        last_html_source = driver.page_source
-        driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
-        time.sleep(3) # 2초 설정시 못가져오는 경우 있음
-        new_html_source = driver.page_source
-        if maximum_comment > 2 or inspect_comment_respone(last_html_source,new_html_source): # maximum_comment: 댓글 최대 개수 설정
+    for i in range(1,6):
+        num = i * 20
+        try:
+            wait.until(element((By.XPATH,'//*[@id="contents"]/ytd-comment-thread-renderer[%d]'%num)))
+        except:
             break
-        maximum_comment += 1
+        else:
+            driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
 
     # html 저장 후 드라이버 닫기
     html_source = driver.page_source
-    driver.close()
+    driver.quit()
 
     return html_source
