@@ -1,20 +1,17 @@
 import { MutationResolvers } from 'src/graphql/generated/graphql'
-// import { client } from '../../postgres/client'
+import { connection } from '../../mysql/connect'
 
-// const sql = 'insert into c (name, age) values ($1, $2) returning *'
+const sql = 'insert into comment (content) values ($1) returning *' // mysql도 이거 맞나?
 
 export const Mutation: MutationResolvers = {
-  createC: (_, { input }) => {
-    // const res = await client.query(sql, [input.name, input.age])
-
-    // return res.rows[0]
-
-    console.log(input)
-    return {
-      id: '1',
-      creationDate: new Date(),
-      name: 'namename',
-      age: 23,
-    }
+  createComment: (_, { input }) => {
+    return new Promise((resolve, reject) => {
+      connection.query(sql, (err: Error, row: any, cols: any) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(row)
+      })
+    })
   },
 }

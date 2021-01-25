@@ -1,9 +1,9 @@
 import { DateTimeResolver } from 'graphql-scalars'
-import { CResolvers } from 'src/graphql/generated/graphql'
+import { UserResolvers } from '../generated/graphql'
 
-export const C: CResolvers = {
-  name: (c) => {
-    return `${c.name}`
+export const User: UserResolvers = {
+  name: (user) => {
+    return `${user.name}`
   },
 }
 
