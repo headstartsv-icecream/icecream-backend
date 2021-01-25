@@ -83,11 +83,12 @@ def melon_crawling(title,singer):
 
     for i in range(1,repeat_num+1):
         driver.find_element_by_xpath('//*[@id="d_cmtpgn_paginate_wrapper"]/span/a[%d]'%i).click() # 댓글이동
-        wait.until(visible((By.XPATH,'//*[@id="d_cmtpgn_cmt_list_wrapper"]/ul/li[1]'))) # html을 온전히 불러오기 위한 대기
-        a, b, c = get_data(driver.page_source)
-        melon_user_IDs += a
-        melon_comments += b
-        melon_date += c
+        time.sleep(1) # html을 온전히 불러오기 위한 대기
+            
+        melon_user_ID, melon_comment, melon_day = get_data(driver.page_source)
+        melon_user_IDs += melon_user_ID
+        melon_comments += melon_comment
+        melon_date += melon_day
 
     driver.quit()
 
