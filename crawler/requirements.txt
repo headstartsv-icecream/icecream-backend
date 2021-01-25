@@ -3,3 +3,5 @@ bs4
 black
 lxml
 pandas
+pymysql
+sqlalchemy

@@ -1,12 +1,12 @@
-import conn from './config/config'
+import connection from './config/config'
 
-conn.connect()
+connection.connect()
 
-conn.query('select * from users;', (err: Error, rows: any, cols: any) => {
+connection.query('select * from comment;', (err: Error, rows: any, cols: any) => {
   if (err) {
     throw err
   }
-  console.log('user info : ', rows)
+  console.log('user comments : ', rows)
 })
 
-conn.end()
+connection.end()

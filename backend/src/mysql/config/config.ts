@@ -1,10 +1,10 @@
 import { createConnection } from 'mysql'
 
-const conn = createConnection({
+const connection = createConnection({
   host: 'localhost',
   user: 'root',
   password: '1234',
-  database: 'my_db',
+  database: 'app',
 })
 
-export default conn
+export default connection
