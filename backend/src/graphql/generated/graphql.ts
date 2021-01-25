@@ -16,22 +16,28 @@ export type Scalars = {
   DateTime: any
 }
 
-export type CCreationInput = {
-  name: Scalars['String']
-  age: Scalars['Int']
+export type CommentCreationInput = {
+  content: Scalars['String']
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
-  createC: C
+  createComment: Comment
 }
 
-export type MutationCreateCArgs = {
-  input: CCreationInput
+export type MutationCreateCommentArgs = {
+  input: CommentCreationInput
 }
 
-export type C = {
-  __typename?: 'C'
+export type Comment = {
+  __typename?: 'Comment'
+  id: Scalars['ID']
+  creationDate: Scalars['DateTime']
+  content: Scalars['String']
+}
+
+export type User = {
+  __typename?: 'User'
   id: Scalars['ID']
   creationDate: Scalars['DateTime']
   name: Scalars['String']
@@ -40,12 +46,8 @@ export type C = {
 
 export type Query = {
   __typename?: 'Query'
-  /** 특정 C 정보를 반환한다. */
-  cById?: Maybe<C>
-}
-
-export type QueryCByIdArgs = {
-  cId: Scalars['Int']
+  /** 사용자 정보를 반환한다. */
+  users?: Maybe<Array<User>>
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
@@ -141,26 +143,28 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  CCreationInput: CCreationInput
+  CommentCreationInput: CommentCreationInput
   String: ResolverTypeWrapper<Scalars['String']>
-  Int: ResolverTypeWrapper<Scalars['Int']>
   Mutation: ResolverTypeWrapper<{}>
-  DateTime: ResolverTypeWrapper<Scalars['DateTime']>
-  C: ResolverTypeWrapper<C>
+  Comment: ResolverTypeWrapper<Comment>
   ID: ResolverTypeWrapper<Scalars['ID']>
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>
+  User: ResolverTypeWrapper<User>
+  Int: ResolverTypeWrapper<Scalars['Int']>
   Query: ResolverTypeWrapper<{}>
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>
 }
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  CCreationInput: CCreationInput
+  CommentCreationInput: CommentCreationInput
   String: Scalars['String']
-  Int: Scalars['Int']
   Mutation: {}
-  DateTime: Scalars['DateTime']
-  C: C
+  Comment: Comment
   ID: Scalars['ID']
+  DateTime: Scalars['DateTime']
+  User: User
+  Int: Scalars['Int']
   Query: {}
   Boolean: Scalars['Boolean']
 }
@@ -169,12 +173,22 @@ export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
-  createC?: Resolver<
-    ResolversTypes['C'],
+  createComment?: Resolver<
+    ResolversTypes['Comment'],
     ParentType,
     ContextType,
-    RequireFields<MutationCreateCArgs, 'input'>
+    RequireFields<MutationCreateCommentArgs, 'input'>
   >
+}
+
+export type CommentResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>
+  creationDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
+  content?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
 export interface DateTimeScalarConfig
@@ -182,9 +196,9 @@ export interface DateTimeScalarConfig
   name: 'DateTime'
 }
 
-export type CResolvers<
+export type UserResolvers<
   ContextType = any,
-  ParentType extends ResolversParentTypes['C'] = ResolversParentTypes['C']
+  ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>
   creationDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
@@ -197,18 +211,14 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
-  cById?: Resolver<
-    Maybe<ResolversTypes['C']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryCByIdArgs, 'cId'>
-  >
+  users?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>
 }
 
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>
+  Comment?: CommentResolvers<ContextType>
   DateTime?: GraphQLScalarType
-  C?: CResolvers<ContextType>
+  User?: UserResolvers<ContextType>
   Query?: QueryResolvers<ContextType>
 }
 

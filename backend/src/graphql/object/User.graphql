@@ -1,6 +1,6 @@
 scalar DateTime
 
-type C {
+type User {
   id: ID!
   creationDate: DateTime!
   name: String!

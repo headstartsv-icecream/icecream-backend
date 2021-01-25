@@ -1,0 +1,7 @@
+input CommentCreationInput {
+  content: String!
+}
+
+type Mutation {
+  createComment(input: CommentCreationInput!): Comment!
+}
