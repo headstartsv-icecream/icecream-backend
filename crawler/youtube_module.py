@@ -45,7 +45,7 @@ def search_music(title,singer):
     driver = ChromeDriver(headless=False).driver
 
     # EC 변수
-    wait = WebDriverWait(driver, 3) # 10초동안 대기. 대기 중 조건 만족하면 넘어간다.
+    wait = WebDriverWait(driver, 3) # 3초동안 대기. 대기 중 조건 만족하면 넘어간다.
     visible = EC.visibility_of_element_located # DOM에 나타남, 웹에 보여야 조건 만족
     element = EC.presence_of_element_located # DOM에 나타남, 웹에 안보여도 조건 만족
 
@@ -60,12 +60,13 @@ def search_music(title,singer):
 
     # 스크롤 내려서 댓글 불러오기
     driver.execute_script("window.scrollTo(0,500);")
-    merch_shelf = False
     
+    # 상품 광고가 있는 경우 한번 더 스크롤 내림
+    merch_shelf = True
     try:
         wait.until(visible((By.XPATH, '//*[@id="merch-shelf"]/ytd-merch-shelf-renderer')))
     except:
-        merch_shelf = True
+        merch_shelf = False
         print("상품 없음")
     if(merch_shelf):
         driver.execute_script("window.scrollTo(0,500);")
