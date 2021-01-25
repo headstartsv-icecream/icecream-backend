@@ -23,6 +23,7 @@ def find_inforamation(song):
     driver.close()
 
     soup = BeautifulSoup(html_source, 'lxml')
+    image = soup.select('div.wrap_info > div.thumb > a.image_typeAll > img')
     song_name = soup.select('div.song_name')
     artist = soup.select('div.artist > a.artist_name > span')[0].text
     album = soup.select('div.meta > dl.list > dd > a')[0].text
@@ -30,6 +31,10 @@ def find_inforamation(song):
     genre = soup.select('div.meta > dl.list > dd')[2].text
     lylic = soup.select('div#d_video_summary')
     artist_name = soup.select('div.section_prdcr > ul.list_person.clfix > li > div.entry')
+
+    image_url = []
+    for i in image:
+        image_url.append(i.get('src'))
 
     str_song_name = []
     for i in range(len(song_name)):
@@ -54,7 +59,7 @@ def find_inforamation(song):
         str_tmp = str_tmp.replace('\t', '')
         str_lylic.append(str_tmp)
 
-    pd_data = {"SongName": str_song_name, "Artist": artist, "Album": album, "ReleaseDate": release_date, "Genre": genre,
+    pd_data = {"Image": image_url, "SongName": str_song_name, "Artist": artist, "Album": album, "ReleaseDate": release_date, "Genre": genre,
                "Lylic": str_lylic, "ArtistName": str_artist_name}
     information_pd = pd.DataFrame(pd_data)
 
