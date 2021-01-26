@@ -1,5 +1,5 @@
 import { CrawlingSource, QueryResolvers } from '../../graphql/generated/graphql'
-import { connection } from '../../mysql/connect'
+import { connection } from '../../database/mysql'
 
 const commentsSQL = 'select * from comment'
 const commentSQL = 'select * from comment'

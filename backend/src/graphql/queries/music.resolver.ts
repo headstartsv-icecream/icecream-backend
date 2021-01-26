@@ -1,5 +1,5 @@
 import { QueryResolvers } from '../../graphql/generated/graphql'
-import { connection } from '../../mysql/connect'
+import { connection } from '../../database/mysql'
 
 const commentsSQL = 'select * from music'
 const commentSQL = 'select * from music where id = $1'
