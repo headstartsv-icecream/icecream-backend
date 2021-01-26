@@ -12,5 +12,5 @@ type Query {
   """
   노래 제목 및 가수 이름으로 음악 검색
   """
-  musicByNameArtist(name: String!, artist: [String!]): Music
+  musicByTitleArtist(title: String!, artist: [String!]): Music
 }
