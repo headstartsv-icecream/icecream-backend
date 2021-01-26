@@ -1,4 +1,3 @@
-import { DateTimeResolver } from 'graphql-scalars'
 import { UserResolvers } from '../generated/graphql'
 
 export const User: UserResolvers = {
@@ -6,5 +5,3 @@ export const User: UserResolvers = {
     return `${user.name}`
   },
 }
-
-export const DateTime = DateTimeResolver
