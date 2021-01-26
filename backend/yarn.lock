@@ -1027,6 +1027,11 @@
   dependencies:
     "@types/express" "*"
 
+"@types/death@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/death/-/death-1.1.1.tgz#698a62ff197cfcbf370e69cd5301a5cad1044a90"
+  integrity sha512-SRZdlsuCMY8iJQQ5CPRHivXR9+mw25peEG9hLEg/styIQ0jiXO90CrNhf7aGFaMFc8wPA+R87QT+AY15u3mO/g==
+
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@4.17.17":
   version "4.17.17"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.17.17.tgz#6ba02465165b6c9c3d8db3a28def6b16fc9b70f5"
@@ -2261,6 +2266,11 @@ de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
   integrity sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=
+
+death@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/death/-/death-1.1.0.tgz#01aa9c401edd92750514470b8266390c66c67318"
+  integrity sha1-AaqcQB7dknUFFEcLgmY5DGbGcxg=
 
 debounce@^1.2.0:
   version "1.2.0"

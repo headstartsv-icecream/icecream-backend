@@ -1,12 +1,19 @@
-import connection from './config/config'
+import dotenv from 'dotenv'
+import { createConnection } from 'mysql'
 
-connection.connect()
+dotenv.config()
 
-connection.query('select * from comment;', (err: Error, rows: any, cols: any) => {
-  if (err) {
-    throw err
-  }
-  console.log('user comments : ', rows)
+export const connection = createConnection({
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  host: process.env.MYSQL_HOST,
+  database: process.env.MYSQL_DATABASE,
 })
 
-connection.end()
+export function connectMySql() {
+  connection.connect()
+}
+
+export function disconnectMySql() {
+  connection.end()
+}
