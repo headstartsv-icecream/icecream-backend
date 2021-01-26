@@ -10,6 +10,7 @@ export const Query: QueryResolvers = {
         if (err) {
           reject(err)
         }
+        console.log(rows)
         resolve(rows)
       })
     })

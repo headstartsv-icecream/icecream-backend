@@ -19,17 +19,19 @@ export type Scalars = {
 /** 댓글 생성 시 필요한 입력값 */
 export type CommentCreationInput = {
   content: Scalars['String']
+  userName: Scalars['String']
 }
 
 /** 댓글 수정 시 필요한 입력값 */
 export type CommentModificationInput = {
+  id: Scalars['ID']
   content: Scalars['String']
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
-  createComment: Comment
-  updataComment: Comment
+  createComment: Scalars['Boolean']
+  modifyComment: Scalars['Boolean']
   deleteComment: Scalars['Boolean']
 }
 
@@ -37,7 +39,7 @@ export type MutationCreateCommentArgs = {
   input: CommentCreationInput
 }
 
-export type MutationUpdataCommentArgs = {
+export type MutationModifyCommentArgs = {
   input: CommentModificationInput
 }
 
@@ -45,11 +47,20 @@ export type MutationDeleteCommentArgs = {
   id: Scalars['Int']
 }
 
+export enum CrawlingSource {
+  Youtube = 'YOUTUBE',
+  Melon = 'MELON',
+}
+
 export type Comment = {
   __typename?: 'Comment'
   id: Scalars['ID']
   creationDate: Scalars['DateTime']
+  crawlingDate: Scalars['DateTime']
   content: Scalars['String']
+  userName: Scalars['String']
+  source: CrawlingSource
+  like?: Maybe<Scalars['Int']>
 }
 
 export type Music = {
@@ -88,6 +99,8 @@ export type User = {
 
 export type Query = {
   __typename?: 'Query'
+  comment?: Maybe<Comment>
+  comments?: Maybe<Array<Comment>>
   /** 내 정보를 반환한다. 해당 권한이 없으면 오류가 발생한다. */
   me?: Maybe<User>
   /** 특정 음악 정보를 반환한다. */
@@ -98,6 +111,10 @@ export type Query = {
   musics?: Maybe<Array<Music>>
   /** 사용자 목록을 반환한다. (관리자 전용) */
   users?: Maybe<Array<User>>
+}
+
+export type QueryCommentArgs = {
+  id: Scalars['ID']
 }
 
 export type QueryMusicArgs = {
@@ -205,11 +222,12 @@ export type ResolversTypes = {
   CommentCreationInput: CommentCreationInput
   String: ResolverTypeWrapper<Scalars['String']>
   CommentModificationInput: CommentModificationInput
+  ID: ResolverTypeWrapper<Scalars['ID']>
   Mutation: ResolverTypeWrapper<{}>
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>
   Int: ResolverTypeWrapper<Scalars['Int']>
+  CrawlingSource: CrawlingSource
   Comment: ResolverTypeWrapper<Comment>
-  ID: ResolverTypeWrapper<Scalars['ID']>
   Music: ResolverTypeWrapper<Music>
   Playlist: ResolverTypeWrapper<Playlist>
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>
@@ -222,11 +240,11 @@ export type ResolversParentTypes = {
   CommentCreationInput: CommentCreationInput
   String: Scalars['String']
   CommentModificationInput: CommentModificationInput
+  ID: Scalars['ID']
   Mutation: {}
   Boolean: Scalars['Boolean']
   Int: Scalars['Int']
   Comment: Comment
-  ID: Scalars['ID']
   Music: Music
   Playlist: Playlist
   DateTime: Scalars['DateTime']
@@ -239,16 +257,16 @@ export type MutationResolvers<
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
   createComment?: Resolver<
-    ResolversTypes['Comment'],
+    ResolversTypes['Boolean'],
     ParentType,
     ContextType,
     RequireFields<MutationCreateCommentArgs, 'input'>
   >
-  updataComment?: Resolver<
-    ResolversTypes['Comment'],
+  modifyComment?: Resolver<
+    ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationUpdataCommentArgs, 'input'>
+    RequireFields<MutationModifyCommentArgs, 'input'>
   >
   deleteComment?: Resolver<
     ResolversTypes['Boolean'],
@@ -264,7 +282,11 @@ export type CommentResolvers<
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>
   creationDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
+  crawlingDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  userName?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+  source?: Resolver<ResolversTypes['CrawlingSource'], ParentType, ContextType>
+  like?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -316,6 +338,13 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
+  comment?: Resolver<
+    Maybe<ResolversTypes['Comment']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryCommentArgs, 'id'>
+  >
+  comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>
   music?: Resolver<
     Maybe<ResolversTypes['Music']>,
