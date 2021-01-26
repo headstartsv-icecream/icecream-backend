@@ -1,6 +1,0 @@
-type Query {
-  """
-  특정 C 정보를 반환한다.
-  """
-  cById(cId: Int!): C
-}

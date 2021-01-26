@@ -16,13 +16,14 @@ from sqlalchemy import create_engine
 pymysql.install_as_MySQLdb()
 import MySQLdb
 
-engine = create_engine("mysql://root:"+"1234"+"@localhost/opentutorials", encoding='utf-8')
+engine = create_engine("mysql://root:"+"1234"+"@10.178.0.2/app", encoding='utf-8')
 # "mysql://아이디:"+"비밀번호"+"@mysql주소:포트/DB이름"
 
-conn = engine.connect()
+connect = engine.connect()
 
-data.to_sql(name='test',con=engine, if_exists='append', index=False)
-data2.to_sql(name='test',con=engine, if_exists='append', index=False)
+data.to_sql(name='comment',con=engine, if_exists='append', index=False)
+data2.to_sql(name='comment',con=engine, if_exists='append', index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
+
 
 conn.close()
