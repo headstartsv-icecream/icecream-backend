@@ -17,5 +17,5 @@ input CommentModificationInput {
 type Mutation {
   createComment(input: CommentCreationInput!): Boolean!
   modifyComment(input: CommentModificationInput!): Boolean!
-  deleteComment(id: Int!): Boolean!
+  deleteComment(id: ID!): Boolean!
 }
