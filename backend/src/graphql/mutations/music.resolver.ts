@@ -7,11 +7,17 @@ const sql =
 export const Mutation: MutationResolvers = {
   createOrModifyMusic: (_, { input }) => {
     return new Promise((resolve, reject) => {
-      connection.query(sql, (err: Error, row: any, cols: any) => {
-        if (err) {
-          reject(err)
-        }
+      resolve({
+        id: '123123',
+        title: input.title ?? '',
+        artists: input.artists ?? [],
+        searchCount: 0,
       })
+      // connection.query(sql, (err: Error, row: any, cols: any) => {
+      //   if (err) {
+      //     reject(err)
+      //   }
+      // })
     })
   },
 }
