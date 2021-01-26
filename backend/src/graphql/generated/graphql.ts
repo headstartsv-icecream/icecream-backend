@@ -31,20 +31,43 @@ export type CommentModificationInput = {
 export type Mutation = {
   __typename?: 'Mutation'
   createComment: Scalars['Boolean']
-  modifyComment: Scalars['Boolean']
+  /** shazamId가 있으면 기존 레코드를 수정하고, shazamId가 없으면 새로 만든다. */
+  createOrModifyMusic: Music
   deleteComment: Scalars['Boolean']
+  modifyComment: Scalars['Boolean']
 }
 
 export type MutationCreateCommentArgs = {
   input: CommentCreationInput
 }
 
+export type MutationCreateOrModifyMusicArgs = {
+  input: MusicCreationModificationInput
+}
+
+export type MutationDeleteCommentArgs = {
+  id: Scalars['ID']
+}
+
 export type MutationModifyCommentArgs = {
   input: CommentModificationInput
 }
 
-export type MutationDeleteCommentArgs = {
-  id: Scalars['Int']
+/** 음악 정보 생성-수정 시 필요한 입력값 */
+export type MusicCreationModificationInput = {
+  shazamId: Scalars['ID']
+  title?: Maybe<Scalars['String']>
+  artists?: Maybe<Array<Scalars['String']>>
+  genres?: Maybe<Array<Scalars['String']>>
+  lyrics?: Maybe<Array<Scalars['String']>>
+  comments?: Maybe<Array<Scalars['String']>>
+  youtubeLink?: Maybe<Scalars['String']>
+  youtubeImage?: Maybe<Scalars['String']>
+  artistImage?: Maybe<Scalars['String']>
+  albumImage?: Maybe<Scalars['String']>
+  similarMusics?: Maybe<Array<Scalars['ID']>>
+  artistOtherMusics?: Maybe<Array<Scalars['ID']>>
+  includedPlaylists?: Maybe<Array<Scalars['ID']>>
 }
 
 export enum CrawlingSource {
@@ -69,17 +92,22 @@ export type Music = {
   title: Scalars['String']
   artists: Array<Scalars['String']>
   searchCount: Scalars['Int']
+  albumImage?: Maybe<Scalars['String']>
+  artistImage?: Maybe<Scalars['String']>
   genres?: Maybe<Array<Scalars['String']>>
-  lyrics?: Maybe<Scalars['String']>
+  lyrics?: Maybe<Array<Scalars['String']>>
+  melonLink?: Maybe<Scalars['String']>
+  shazamId?: Maybe<Scalars['Int']>
   youtubeLink?: Maybe<Scalars['String']>
-  /** 이 노래에 해당하는 댓글 목록을 반환한다. # 페이지네이션 필요 */
-  comments?: Maybe<Array<Scalars['String']>>
-  /** 이 노래와 비슷한 노래 목록을 반환한다. # 페이지네이션 필요 */
-  similarMusics?: Maybe<Array<Music>>
+  youtubeImage?: Maybe<Scalars['String']>
   /** 이 노래를 부른 가수의 다른 노래를 검색 횟수 순으로 반환한다. # 페이지네이션 필요 */
   artistOtherMusics?: Maybe<Array<Music>>
+  /** 이 노래에 해당하는 댓글 목록을 반환한다. # 페이지네이션 필요 */
+  comments?: Maybe<Array<Scalars['String']>>
   /** 이 노래가 포함된 재생 목록을 반환한다. # 페이지네이션 필요 */
   includedPlaylists?: Maybe<Array<Playlist>>
+  /** 이 노래와 비슷한 노래 목록을 반환한다. # 페이지네이션 필요 */
+  similarMusics?: Maybe<Array<Music>>
 }
 
 export type Playlist = {
@@ -106,7 +134,7 @@ export type Query = {
   /** 특정 음악 정보를 반환한다. */
   music?: Maybe<Music>
   /** 노래 제목 및 가수 이름으로 음악 검색 */
-  musicByNameArtist?: Maybe<Music>
+  musicByTitleArtist?: Maybe<Music>
   /** 모든 음악 목록을 반환한다. # 페이지네이션 필요 */
   musics?: Maybe<Array<Music>>
   /** 사용자 목록을 반환한다. (관리자 전용) */
@@ -121,8 +149,8 @@ export type QueryMusicArgs = {
   id: Scalars['ID']
 }
 
-export type QueryMusicByNameArtistArgs = {
-  name: Scalars['String']
+export type QueryMusicByTitleArtistArgs = {
+  title: Scalars['String']
   artist?: Maybe<Array<Scalars['String']>>
 }
 
@@ -225,13 +253,14 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>
   Mutation: ResolverTypeWrapper<{}>
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>
-  Int: ResolverTypeWrapper<Scalars['Int']>
+  MusicCreationModificationInput: MusicCreationModificationInput
   CrawlingSource: CrawlingSource
   Comment: ResolverTypeWrapper<Comment>
+  Int: ResolverTypeWrapper<Scalars['Int']>
   Music: ResolverTypeWrapper<Music>
   Playlist: ResolverTypeWrapper<Playlist>
-  DateTime: ResolverTypeWrapper<Scalars['DateTime']>
   User: ResolverTypeWrapper<User>
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>
   Query: ResolverTypeWrapper<{}>
 }
 
@@ -243,12 +272,13 @@ export type ResolversParentTypes = {
   ID: Scalars['ID']
   Mutation: {}
   Boolean: Scalars['Boolean']
-  Int: Scalars['Int']
+  MusicCreationModificationInput: MusicCreationModificationInput
   Comment: Comment
+  Int: Scalars['Int']
   Music: Music
   Playlist: Playlist
-  DateTime: Scalars['DateTime']
   User: User
+  DateTime: Scalars['DateTime']
   Query: {}
 }
 
@@ -262,17 +292,23 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateCommentArgs, 'input'>
   >
-  modifyComment?: Resolver<
-    ResolversTypes['Boolean'],
+  createOrModifyMusic?: Resolver<
+    ResolversTypes['Music'],
     ParentType,
     ContextType,
-    RequireFields<MutationModifyCommentArgs, 'input'>
+    RequireFields<MutationCreateOrModifyMusicArgs, 'input'>
   >
   deleteComment?: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
     RequireFields<MutationDeleteCommentArgs, 'id'>
+  >
+  modifyComment?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationModifyCommentArgs, 'input'>
   >
 }
 
@@ -298,13 +334,18 @@ export type MusicResolvers<
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   artists?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>
   searchCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
+  albumImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  artistImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   genres?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>
-  lyrics?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  lyrics?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>
+  melonLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+  shazamId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>
   youtubeLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
-  comments?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>
-  similarMusics?: Resolver<Maybe<Array<ResolversTypes['Music']>>, ParentType, ContextType>
+  youtubeImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
   artistOtherMusics?: Resolver<Maybe<Array<ResolversTypes['Music']>>, ParentType, ContextType>
+  comments?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>
   includedPlaylists?: Resolver<Maybe<Array<ResolversTypes['Playlist']>>, ParentType, ContextType>
+  similarMusics?: Resolver<Maybe<Array<ResolversTypes['Music']>>, ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
@@ -318,11 +359,6 @@ export type PlaylistResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
-export interface DateTimeScalarConfig
-  extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
-  name: 'DateTime'
-}
-
 export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
@@ -332,6 +368,11 @@ export type UserResolvers<
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   age?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
+}
+
+export interface DateTimeScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime'
 }
 
 export type QueryResolvers<
@@ -352,11 +393,11 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryMusicArgs, 'id'>
   >
-  musicByNameArtist?: Resolver<
+  musicByTitleArtist?: Resolver<
     Maybe<ResolversTypes['Music']>,
     ParentType,
     ContextType,
-    RequireFields<QueryMusicByNameArtistArgs, 'name'>
+    RequireFields<QueryMusicByTitleArtistArgs, 'title'>
   >
   musics?: Resolver<Maybe<Array<ResolversTypes['Music']>>, ParentType, ContextType>
   users?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>
@@ -367,8 +408,8 @@ export type Resolvers<ContextType = any> = {
   Comment?: CommentResolvers<ContextType>
   Music?: MusicResolvers<ContextType>
   Playlist?: PlaylistResolvers<ContextType>
-  DateTime?: GraphQLScalarType
   User?: UserResolvers<ContextType>
+  DateTime?: GraphQLScalarType
   Query?: QueryResolvers<ContextType>
 }
 
