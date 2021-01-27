@@ -1,0 +1,15 @@
+type Mutation {
+  """
+  @요청 : 이메일과 1번 해싱한 비밀번호를 전송 \n
+
+  @응답 : 인증 토큰 반환ㅇ
+  """
+  login(email: String!, passwordHash: String!): String
+
+  """
+  요청 : HTTP Header나 쿠키에 token 정보를 넣어서 전송
+
+  응답 : 로그아웃 여부
+  """
+  logout: Boolean!
+}
