@@ -1,5 +1,5 @@
 import { QueryResolvers } from 'src/graphql/generated/graphql'
-import { connection } from '../../mysql/connect'
+import { connection } from '../../database/mysql'
 
 const sql = 'select * from users;'
 
@@ -10,6 +10,7 @@ export const Query: QueryResolvers = {
         if (err) {
           reject(err)
         }
+        console.log(rows)
         resolve(rows)
       })
     })

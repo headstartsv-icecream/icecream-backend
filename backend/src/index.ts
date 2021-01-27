@@ -2,7 +2,7 @@
 /* eslint-disable promise/catch-or-return */
 import ON_DEATH from 'death'
 import { server } from './apollo/server'
-import { connectMySql, disconnectMySql } from './mysql/connect'
+import { connectMySql, disconnectMySql } from './database/mysql'
 
 connectMySql()
 
@@ -12,7 +12,7 @@ server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
 
 ON_DEATH(() => {
   try {
-    // disconnectMySql()
+    disconnectMySql()
   } catch (err) {
     console.error(err)
   }

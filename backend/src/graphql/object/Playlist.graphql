@@ -1,0 +1,5 @@
+type Playlist {
+  id: ID!
+  name: String!
+  musics: [Music!]
+}
