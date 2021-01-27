@@ -2,12 +2,12 @@ import youtube_module
 import melon_module
 
 
-song = '혁오-love ya!'
-html = youtube_module.search_music(song)
-data = youtube_module.find_comment(html)
-data2 = melon_module.melon_crawling(song)
+title = 'All I Wanna Do'
+singer = 'Jay park'
 
-
+html = youtube_module.search_music(title,singer)
+data = youtube_module.find_comment(html,title,singer)
+data2 = melon_module.melon_crawling(title,singer)
 
 # 여기부터 MySQL 저장
 import pymysql
@@ -25,6 +25,5 @@ data.to_sql(name='comment',con=engine, if_exists='append', index=False)
 data2.to_sql(name='comment',con=engine, if_exists='append', index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
-sql = 'select * from comment'
 
-connect.close()
+conn.close()
