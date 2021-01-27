@@ -1,10 +1,19 @@
 /* eslint-disable promise/always-return */
 /* eslint-disable promise/catch-or-return */
+import ON_DEATH from 'death'
 import { server } from './apollo/server'
-// import { connectPostgres } from './postgres/client'
+import { connectMySql, disconnectMySql } from './database/mysql'
 
-// connectPostgres()
+connectMySql()
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`)
+})
+
+ON_DEATH(() => {
+  try {
+    disconnectMySql()
+  } catch (err) {
+    console.error(err)
+  }
 })

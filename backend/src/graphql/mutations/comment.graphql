@@ -1,0 +1,21 @@
+"""
+댓글 생성 시 필요한 입력값
+"""
+input CommentCreationInput {
+  content: String!
+  userName: String!
+}
+
+"""
+댓글 수정 시 필요한 입력값
+"""
+input CommentModificationInput {
+  id: ID!
+  content: String!
+}
+
+type Mutation {
+  createComment(input: CommentCreationInput!): Boolean!
+  modifyComment(input: CommentModificationInput!): Boolean!
+  deleteComment(id: ID!): Boolean!
+}

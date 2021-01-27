@@ -253,3 +253,5 @@ dmypy.json
 # ChromeDriver
 chromedriver*
 
+# database
+db/

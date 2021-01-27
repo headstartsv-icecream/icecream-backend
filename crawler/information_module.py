@@ -8,15 +8,32 @@ from common.functions import ChromeDriver
 # Add modules in common/functions.py
 sys.path.append(os.getcwd())
 
-def find_inforamation(song):
-    driver = ChromeDriver(headless=False).driver
-    driver.get("https://www.melon.com/")
+def search_word(title,singer):
+    return singer+'+'+title.replace(' ','+')
 
-    search = driver.find_element_by_xpath('//input[@id="top_search"]')
-    search.send_keys(song)
-    search.send_keys(Keys.ENTER)
-    driver.find_element_by_xpath('//*[@id="frm_songList"]/div/table/tbody/tr[1]/td[3]/div/div/a[1]/span').click()
-    driver.find_element_by_xpath('//*[@id="d_cmtpgn_cmt_count_wrapper"]/ul/li[2]/a').click()
+def find_inforamation(title, singer):
+    driver = ChromeDriver(headless=False).driver
+    
+    driver.get("https://www.melon.com/search/total/index.htm?q=" + str(search_word(title, singer)))
+
+    driver.find_element_by_xpath('//*[@id="divCollection"]/ul/li[3]/a/span').click()  # 검색 항목에서 '곡'으로 바꿈
+
+    # 곡이 없으면 가수 이름으로 재검색
+    try:
+        driver.find_element_by_xpath(
+            '//*[@id="frm_defaultList"]/div/table/tbody/tr/td[3]/div/div/a[1]/span').click()  # 첫 번째 곡 정보 선택
+    except:
+        driver.get("https://www.melon.com/search/total/index.htm?q=" + str(singer.replace(' ', '+')))
+        driver.find_element_by_xpath('//*[@id="divCollection"]/ul/li[3]/a/span').click()  # 검색 항목에서 '곡'으로 바꿈
+        html_source = driver.page_source
+        soup = BeautifulSoup(html_source, 'lxml')
+        for i in range(1, 50):
+            song_name = soup.select_one(
+                '#frm_defaultList > div > table > tbody > tr:nth-child(%d) > td:nth-child(3) > div > div > a.fc_gray' % i).get_text()
+            if (title in song_name):
+                driver.find_element_by_xpath(
+                    '//*[@id="frm_defaultList"]/div/table/tbody/tr[%d]/td[3]/div/div/a[1]/span' % i).click()
+                break
 
     driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
     html_source = driver.page_source
