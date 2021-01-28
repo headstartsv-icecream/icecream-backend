@@ -76,8 +76,8 @@ def find_inforamation(title, singer):
         str_tmp = str_tmp.replace('\t', '')
         str_lylic.append(str_tmp)
 
-    pd_data = {"Image": image_url, "SongName": str_song_name, "Artist": artist, "Album": album, "ReleaseDate": release_date, "Genre": genre,
-               "Lylic": str_lylic, "ArtistName": str_artist_name}
+    pd_data = {"image": image_url, "title": str_song_name, "artist": artist, "album": album, "release_date": release_date, "genre": genre,
+               "lylic": str_lylic, "ArtistName": str_artist_name}
     information_pd = pd.DataFrame(pd_data)
 
     return information_pd
