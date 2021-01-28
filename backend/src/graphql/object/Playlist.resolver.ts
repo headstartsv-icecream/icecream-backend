@@ -1,6 +1,5 @@
 import { PlaylistResolvers } from '../generated/graphql'
-
-const sql = 'select * from playlist '
+import { Music } from './Music.resolver'
 
 export const Playlist: PlaylistResolvers = {
   id: (playlist) => {
@@ -12,6 +11,6 @@ export const Playlist: PlaylistResolvers = {
   },
 
   musics: (playlist) => {
-      return playlist.musics
+      return playlist.musics ? playlist.musics : null
   },
 }

@@ -26,11 +26,11 @@ export const Music: MusicResolvers = {
     },
 
     genres: (music) => {
-        return music.genres
+        return music.genres ? music.genres : null
     },
 
     lyrics: (music) => {
-        return music.lyrics
+        return music.lyrics ? music.lyrics : null
     },
 
     melonLink: (music) => {
