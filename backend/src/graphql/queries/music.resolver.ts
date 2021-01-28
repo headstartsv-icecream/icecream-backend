@@ -29,6 +29,7 @@ export const Query: QueryResolvers = {
             youtubeLink: row.youtubeLink,
             youtubeImage: row.youtubeImage,
           }))
+        )
       })
     })
   },

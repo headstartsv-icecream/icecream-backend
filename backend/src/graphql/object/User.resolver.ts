@@ -10,7 +10,7 @@ export const User: UserResolvers = {
   },
 
   age: (user) => {
-    return `${user.age}`
+    return user.age
   },
 
   creationDate: (user) => {

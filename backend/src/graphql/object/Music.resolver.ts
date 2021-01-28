@@ -1,51 +1,51 @@
 import { MusicResolvers } from '../generated/graphql'
 
 export const Music: MusicResolvers = {
-    id: (Music) => {
-        return `${Music.id}`
+    id: (music) => {
+        return `${music.id}`
     },
   
-    title: (Music) => {
-      return `${Music.title}`
+    title: (music) => {
+      return `${music.title}`
     },
   
-    artists: (Music) => {
-        return `${Music.artists}`
+    artists: (music) => {
+        return music.artists
     },
 
-    searchCount: (Music) => {
-        return `${Music.searchCount}`
+    searchCount: (music) => {
+        return music.searchCount
     },
 
-    albumImage: (Music) => {
-        return `${Music.albumImage}`
+    albumImage: (music) => {
+        return `${music.albumImage}`
     },
 
-    artistImage: (Music) => {
-        return `${Music.artistImage}`
+    artistImage: (music) => {
+        return `${music.artistImage}`
     },
 
-    genres: (Music) => {
-        return `${Music.genres}`
+    genres: (music) => {
+        return music.genres
     },
 
-    lyrics: (Music) => {
-        return `${Music.lyrics}`
+    lyrics: (music) => {
+        return music.lyrics
     },
 
-    melonLink: (Music) => {
-        return `${Music.melonLink}`
+    melonLink: (music) => {
+        return `${music.melonLink}`
     },
 
-    shazamId: (Music) => {
-        return `${Music.shazamId}`
+    shazamId: (music) => {
+        return Number(music.shazamId)
     },
 
-    youtubeLink: (Music) => {
-        return `${Music.youtubeLink}`
+    youtubeLink: (music) => {
+        return `${music.youtubeLink}`
     },
 
-    youtubeImage: (Music) => {
-        return `${Music.youtubeImage}`
+    youtubeImage: (music) => {
+        return `${music.youtubeImage}`
     },
 }
