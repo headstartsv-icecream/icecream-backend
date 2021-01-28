@@ -48,4 +48,20 @@ export const Music: MusicResolvers = {
     youtubeImage: (music) => {
         return `${music.youtubeImage}`
     },
+
+    artistOtherMusics: (music) => {
+        return music.artistOtherMusics ? music.artistOtherMusics : null
+    },
+
+    comments: (music) => {
+        return music.comments ? music.comments : null
+    },
+
+    includedPlaylists: (music) => {
+        return music.includedPlaylists ? music.includedPlaylists : null
+    },
+    
+    similarMusics: (music) => {
+        return music.similarMusics ? music.similarMusics : null
+    }
 }
