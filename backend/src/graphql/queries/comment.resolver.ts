@@ -1,4 +1,4 @@
-import { CrawlingSource, QueryResolvers } from '../../graphql/generated/graphql'
+import { CrawlingSource, QueryResolvers } from '../generated/graphql'
 import { connection } from '../../database/mysql'
 
 const commentsSQL = 'select * from comment'

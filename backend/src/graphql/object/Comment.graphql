@@ -6,10 +6,12 @@ enum CrawlingSource {
 type Comment {
   id: ID!
   creationDate: DateTime!
-  crawlingDate: DateTime!
+  modificationDate: DateTime!
+
+  writingDate: String!
   content: String!
   userName: String!
   source: CrawlingSource!
 
-  like: Int
+  likeCount: Int
 }
