@@ -19,7 +19,8 @@ input MusicCreationModificationInput {
 
 type Mutation {
   """
-  shazamId가 있으면 기존 레코드를 수정하고, shazamId가 없으면 새로 만든다.
+  Shazam API로부터 받은 음악 상세 데이터를 전송하면 기존에 데이터가 있으면 수정하고 없으면 새로 만든다.
+  그리고 해당 음악 정보를 반환한다.
   """
   createOrModifyMusic(input: MusicCreationModificationInput!): Music!
 }
