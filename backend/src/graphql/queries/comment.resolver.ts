@@ -1,8 +1,8 @@
 import { CrawlingSource, QueryResolvers } from '../../graphql/generated/graphql'
 import { connection } from '../../database/mysql'
 
-const commentsSQL = 'select * from comment'
-const commentSQL = 'select * from comment'
+const commentsSQL = 'select * from comment;'
+const commentSQL = 'select * from comment where id = $1;'
 
 export const Query: QueryResolvers = {
   comments: () => {

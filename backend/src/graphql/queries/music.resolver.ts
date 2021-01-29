@@ -1,9 +1,9 @@
 import { QueryResolvers } from '../../graphql/generated/graphql'
 import { connection } from '../../database/mysql'
 
-const musicsSQL = 'select * from music'
-const musicSQL = 'select * from music where id = $1'
-const musicByTitleArtistSQL = 'select * from music where (title = $1 and artist = $2)'
+const musicsSQL = 'select * from music;'
+const musicSQL = 'select * from music where id = $1;'
+const musicByTitleArtistSQL = 'select * from music where (title = $1 and artist = $2);'
 
 export const Query: QueryResolvers = {
   musics: () => {
