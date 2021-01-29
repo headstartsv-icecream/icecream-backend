@@ -1,5 +1,6 @@
 type Playlist {
   id: ID!
+  creationDate: DateTime!
   name: String!
   musics: [Music!]
 }
