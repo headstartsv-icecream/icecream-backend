@@ -91,13 +91,15 @@ export type Artist = {
 export enum CrawlingSource {
   Youtube = 'YOUTUBE',
   Melon = 'MELON',
+  Icezam = 'ICEZAM',
 }
 
 export type Comment = {
   __typename?: 'Comment'
   id: Scalars['ID']
   creationDate: Scalars['DateTime']
-  crawlingDate: Scalars['DateTime']
+  modificationDate: Scalars['DateTime']
+  writingDate: Scalars['String']
   content: Scalars['String']
   userName: Scalars['String']
   source: CrawlingSource
@@ -107,6 +109,7 @@ export type Comment = {
 export type Music = {
   __typename?: 'Music'
   id: Scalars['ID']
+  creationDate: Scalars['DateTime']
   title: Scalars['String']
   artists: Array<Scalars['String']>
   searchCount: Scalars['Int']
@@ -132,6 +135,7 @@ export type Music = {
 export type Playlist = {
   __typename?: 'Playlist'
   id: Scalars['ID']
+  creationDate: Scalars['DateTime']
   name: Scalars['String']
   musics?: Maybe<Array<Music>>
 }
@@ -359,7 +363,8 @@ export type CommentResolvers<
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>
   creationDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
-  crawlingDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
+  modificationDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
+  writingDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   userName?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   source?: Resolver<ResolversTypes['CrawlingSource'], ParentType, ContextType>
@@ -372,6 +377,7 @@ export type MusicResolvers<
   ParentType extends ResolversParentTypes['Music'] = ResolversParentTypes['Music']
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>
+  creationDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   artists?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>
   searchCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
@@ -396,6 +402,7 @@ export type PlaylistResolvers<
   ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>
+  creationDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
   musics?: Resolver<Maybe<Array<ResolversTypes['Music']>>, ParentType, ContextType>
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>

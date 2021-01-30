@@ -1,6 +1,7 @@
 enum CrawlingSource {
   YOUTUBE
   MELON
+  ICEZAM
 }
 
 type Comment {

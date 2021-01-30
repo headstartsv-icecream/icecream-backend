@@ -1,8 +1,9 @@
 import { CrawlingSource, QueryResolvers } from '../generated/graphql'
 import { connection } from '../../database/mysql'
+import { isTypeDefinitionNode } from 'graphql'
 
 const commentsSQL = 'select * from comment'
-const commentSQL = 'select * from comment'
+const commentSQL = 'select * from comment where id=?'
 
 export const Query: QueryResolvers = {
   comments: () => {
@@ -14,12 +15,22 @@ export const Query: QueryResolvers = {
 
         resolve(
           rows.map((row: any, index: number) => ({
-            id: index,
+            id: row.id,
             creationDate: new Date(), // temporary
-            crawlingDate: new Date(), // temporary
-            content: row.comment,
-            userName: row.id,
-            source: row.source === 'youtube' ? CrawlingSource.Youtube : CrawlingSource.Melon,
+            modificationDate: new Date(), // temporary
+            writingDate: row.writingDate,
+            content: row.content,
+            userName: row.userName,
+            source: (() => {
+              switch (row.source) {
+                case 'youtube':
+                  return CrawlingSource.Youtube
+                case 'melon':
+                  return CrawlingSource.Melon
+                case 'icezam':
+                  return CrawlingSource.Icezam
+              }
+            })(),
           }))
         )
       })
@@ -28,19 +39,31 @@ export const Query: QueryResolvers = {
 
   comment: (_, { id }) => {
     return new Promise((resolve, reject) => {
-      connection.query(commentSQL, (err: Error, rows: any, cols: any) => {
+      connection.query(commentSQL, [id], (err: Error | null, rows: any, cols: any) => {
         if (err) {
           reject(err)
         }
 
-        const row = rows[+id]
+        const row = rows[0]
         resolve({
-          id: id,
+          id: row.id,
           creationDate: new Date(), // temporary
-          crawlingDate: new Date(), // temporary
-          content: row.comment,
-          userName: row.id,
-          source: row.source === 'youtube' ? CrawlingSource.Youtube : CrawlingSource.Melon,
+          modificationDate: new Date(), // temporary
+          writingDate: row.writingDate,
+          content: row.content,
+          userName: row.userName,
+          source: (() => {
+            switch (row.source) {
+              case 'youtube':
+                return CrawlingSource.Youtube
+              case 'melon':
+                return CrawlingSource.Melon
+              case 'icezam':
+                return CrawlingSource.Icezam
+              default:
+                return CrawlingSource.Youtube // 추후 삭제 요망
+            }
+          })(),
         })
       })
     })

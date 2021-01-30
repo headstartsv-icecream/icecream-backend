@@ -9,6 +9,7 @@ export const Mutation: MutationResolvers = {
     return new Promise((resolve, reject) => {
       resolve({
         id: '123123',
+        creationDate: new Date(),
         title: input.title ?? '',
         artists: input.artists ?? [],
         searchCount: 0,
