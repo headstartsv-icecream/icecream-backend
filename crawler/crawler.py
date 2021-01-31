@@ -1,6 +1,6 @@
 import youtube_module
 import melon_module
-
+import information_module
 
 title = 'All I Wanna Do'
 singer = 'Jay park'
@@ -8,6 +8,7 @@ singer = 'Jay park'
 html = youtube_module.search_music(title,singer)
 data = youtube_module.find_comment(html,title,singer)
 data2 = melon_module.melon_crawling(title,singer)
+data3 = information_module.find_inforamation(title,singer)
 
 # 여기부터 MySQL 저장
 import pymysql
@@ -23,7 +24,7 @@ connect = engine.connect()
 
 data.to_sql(name='comment',con=engine, if_exists='append', index=False)
 data2.to_sql(name='comment',con=engine, if_exists='append', index=False)
+data3.to_sql(name="info", con=engine, if_exists="append", index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
-
-conn.close()
+connect.close()
