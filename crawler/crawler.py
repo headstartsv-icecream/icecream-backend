@@ -3,7 +3,7 @@ import melon_module
 import information_module
 
 title = '지켜줄게'
-singer = '백예린'
+singer = '백예린'replace(' & ',', ')
 
 html = youtube_module.search_music(title,singer)
 data = youtube_module.find_comment(html,title,singer)

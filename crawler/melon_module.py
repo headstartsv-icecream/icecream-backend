@@ -25,7 +25,7 @@ def search_word(title,singer):
 
 def melon_crawling(title,singer):
     driver = ChromeDriver(headless=False).driver
-    
+
     # EC 변수
     wait = WebDriverWait(driver, 3)
     visible = EC.visibility_of_element_located # DOM에 나타남, 웹에 보여야 조건 만족

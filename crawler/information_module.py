@@ -42,7 +42,7 @@ def find_inforamation(title, singer):
     soup = BeautifulSoup(html_source, 'lxml')
     image = soup.select('div.wrap_info > div.thumb > a.image_typeAll > img')
     song_name = soup.select('div.song_name')
-    artist = soup.select('div.artist > a.artist_name > span')[0].text
+    artist = singer.replace(' & ',', ')
     album = soup.select('div.meta > dl.list > dd > a')[0].text
     release_date = soup.select('div.meta > dl.list > dd')[1].text
     genre = soup.select('div.meta > dl.list > dd')[2].text
@@ -77,7 +77,6 @@ def find_inforamation(title, singer):
         str_tmp = str_tmp.strip()
         str_tmp = str_tmp.strip('<br/>')
         str_tmp = str_tmp.replace('\t', '')
-        print(str_tmp)
         str_lylic.append(str_tmp)
 
     print("정보 가져옴")
