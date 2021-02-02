@@ -71,9 +71,13 @@ def find_inforamation(title, singer):
 
     str_lylic = []
     for i in range(len(lylic)):
-        str_tmp = str(lylic[i].text)
-        str_tmp = str_tmp.replace('\n', '')
+        str_tmp = str(lylic[i])
+        str_tmp = str_tmp.replace('<div class="lyric" id="d_video_summary"><!-- height:auto; 로 변경시, 확장됨 -->', '')
+        str_tmp = str_tmp.strip('</div>')
+        str_tmp = str_tmp.strip()
+        str_tmp = str_tmp.strip('<br/>')
         str_tmp = str_tmp.replace('\t', '')
+        print(str_tmp)
         str_lylic.append(str_tmp)
 
     print("정보 가져옴")

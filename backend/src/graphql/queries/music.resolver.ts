@@ -25,7 +25,7 @@ export const Query: QueryResolvers = {
             albumColor: row.albumColor,
             // artistImage: ,
             // genres: row.genre,
-            // lyrics: row.lyric
+            lyrics: row.lyric.split('<br/>'),
             melonLink: row.melonLink,
             shazamID: row.shazamID,
             youtubeLink: row.youtubeLink,
@@ -54,7 +54,7 @@ export const Query: QueryResolvers = {
           albumColor: row.albumColor,
           // artistImage: ,
           // genres: row.genre,
-          // lyrics: row.lyric,
+          lyrics: row.lyric.split('<br/>'),
           melonLink: row.melonLink,
           shazamId: row.shazamId,
           youtubeLink: row.youtubeLink,
@@ -75,7 +75,6 @@ export const Query: QueryResolvers = {
             reject(err)
           }
 
-          console.log(rows)
           const row = rows[0]
           resolve({
             id: row.id,
@@ -87,7 +86,7 @@ export const Query: QueryResolvers = {
             albumColor: row.albumColor,
             // artistImage: ,
             // genres: row.genre,
-            // lyrics: row.lyric,
+            lyrics: row.lyric.split('<br/>'),
             melonLink: row.melonLink,
             shazamId: row.shazamId,
             youtubeLink: row.youtubeLink,
