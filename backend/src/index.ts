@@ -2,7 +2,7 @@
 /* eslint-disable promise/catch-or-return */
 import ON_DEATH from 'death'
 import { server } from './apollo/server'
-import { connectMySql, disconnectMySql } from './database/mysql'
+import { connectMySql, connection, disconnectMySql } from './database/mysql'
 
 connectMySql()
 

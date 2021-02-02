@@ -14,6 +14,10 @@ export function connectMySql() {
   connection.connect(() => {
     console.log('Connected to MySQL')
   })
+
+  connection.query('select * from comment;', (err:Error, rows:any, cols:any) => {
+        console.log(rows)
+})
 }
 
 export function disconnectMySql() {
