@@ -76,8 +76,10 @@ def find_inforamation(title, singer):
         str_tmp = str_tmp.replace('\t', '')
         str_lylic.append(str_tmp)
 
-    pd_data = {"Image": image_url, "SongName": str_song_name, "Artist": artist, "Album": album, "ReleaseDate": release_date, "Genre": genre,
-               "Lylic": str_lylic, "ArtistName": str_artist_name}
+    print("정보 가져옴")
+
+    pd_data = {"albumImage": image_url, "title": str_song_name, "artist": artist, "Album": album, "ReleaseDate": release_date, "Genre": genre,
+               "lyric": str_lylic, "artistName": str_artist_name}
     information_pd = pd.DataFrame(pd_data)
 
     return information_pd

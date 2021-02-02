@@ -29,8 +29,8 @@ export const Query: QueryResolvers = {
         resolve(
           rows.map((row: any, index: number) => ({
             id: row.id,
-            creationDate: row.creationDate, // temporary
-            modificationDate: row.modificationDate, // temporary
+            creationDate: row.creationDate,
+            modificationDate: row.modificationDate,
             writingDate: row.writingDate,
             content: row.content,
             userName: row.userName,
@@ -51,8 +51,8 @@ export const Query: QueryResolvers = {
         const row = rows[0]
         resolve({
           id: row.id,
-          creationDate: row.creationDate, // temporary
-          modificationDate: row.modificationDate, // temporary
+          creationDate: row.creationDate,
+          modificationDate: row.modificationDate,
           writingDate: row.writingDate,
           content: row.content,
           userName: row.userName,

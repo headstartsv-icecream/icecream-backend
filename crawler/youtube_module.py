@@ -29,7 +29,7 @@ def find_comment(html_source,title,singer):
 
         str_tmp = str(youtube_comments[i].text)
         str_tmp = str_tmp.replace('\n', ' ')
-        str_tmp = str_tmp.replace('\t', '')
+        str_tmp = str_tmp.replace('\r', '')
         str_tmp = str_tmp.strip()
         str_youtube_comments.append(str_tmp)
 
