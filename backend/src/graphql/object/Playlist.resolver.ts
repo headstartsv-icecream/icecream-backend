@@ -3,7 +3,7 @@ import { Music } from './Music.resolver'
 
 export const Playlist: PlaylistResolvers = {
   id: (playlist) => {
-      return `${playlist.id}`
+    return `${playlist.id}`
   },
 
   name: (playlist) => {
@@ -11,6 +11,6 @@ export const Playlist: PlaylistResolvers = {
   },
 
   musics: (playlist) => {
-      return playlist.musics ? playlist.musics : null
+    return playlist.musics ? playlist.musics : null
   },
 }

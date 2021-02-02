@@ -1,67 +1,67 @@
 import { MusicResolvers } from '../generated/graphql'
 
 export const Music: MusicResolvers = {
-    id: (music) => {
-        return `${music.id}`
-    },
-  
-    title: (music) => {
-      return `${music.title}`
-    },
-  
-    artists: (music) => {
-        return music.artists
-    },
+  id: (music) => {
+    return `${music.id}`
+  },
 
-    searchCount: (music) => {
-        return music.searchCount
-    },
+  title: (music) => {
+    return `${music.title}`
+  },
 
-    albumImage: (music) => {
-        return `${music.albumImage}`
-    },
+  artists: (music) => {
+    return music.artists
+  },
 
-    artistImage: (music) => {
-        return `${music.artistImage}`
-    },
+  searchCount: (music) => {
+    return music.searchCount
+  },
 
-    genres: (music) => {
-        return music.genres ? music.genres : null
-    },
+  albumImage: (music) => {
+    return `${music.albumImage}`
+  },
 
-    lyrics: (music) => {
-        return music.lyrics ? music.lyrics : null
-    },
+  artistImage: (music) => {
+    return `${music.artistImage}`
+  },
 
-    melonLink: (music) => {
-        return `${music.melonLink}`
-    },
+  genres: (music) => {
+    return music.genres ? music.genres : null
+  },
 
-    shazamId: (music) => {
-        return Number(music.shazamId)
-    },
+  lyrics: (music) => {
+    return music.lyrics ? music.lyrics : null
+  },
 
-    youtubeLink: (music) => {
-        return `${music.youtubeLink}`
-    },
+  melonLink: (music) => {
+    return `${music.melonLink}`
+  },
 
-    youtubeImage: (music) => {
-        return `${music.youtubeImage}`
-    },
+  shazamId: (music) => {
+    return Number(music.shazamId)
+  },
 
-    artistOtherMusics: (music) => {
-        return music.artistOtherMusics ? music.artistOtherMusics : null
-    },
+  youtubeLink: (music) => {
+    return `${music.youtubeLink}`
+  },
 
-    comments: (music) => {
-        return music.comments ? music.comments : null
-    },
+  youtubeImage: (music) => {
+    return `${music.youtubeImage}`
+  },
 
-    includedPlaylists: (music) => {
-        return music.includedPlaylists ? music.includedPlaylists : null
-    },
-    
-    similarMusics: (music) => {
-        return music.similarMusics ? music.similarMusics : null
-    }
+  artistOtherMusics: (music) => {
+    return music.artistOtherMusics ? music.artistOtherMusics : null
+  },
+
+  comments: (music) => {
+    return music.comments ? music.comments : null
+  },
+
+  includedPlaylists: (music) => {
+    return music.includedPlaylists ? music.includedPlaylists : null
+  },
+
+  similarMusics: (music) => {
+    return music.similarMusics ? music.similarMusics : null
+  },
 }

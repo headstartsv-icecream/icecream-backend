@@ -1,31 +1,31 @@
 import { CommentResolvers } from '../generated/graphql'
 
 export const Comment: CommentResolvers = {
-    id: (comment) => {
-        return `${comment.id}`
-    },
-  
-    creationDate: (comment) => {
-      return `${comment.creationDate}`
-    },
-  
-    crawlingDate: (comment) => {
-        return `${comment.crawlingDate}`
-    },
+  id: (comment) => {
+    return `${comment.id}`
+  },
 
-    content: (comment) => {
-        return `${comment.content}`
-    },
+  creationDate: (comment) => {
+    return `${comment.creationDate}`
+  },
 
-    userName: (comment) => {
-        return `${comment.userName}`
-    },
+  crawlingDate: (comment) => {
+    return `${comment.crawlingDate}`
+  },
 
-    source: (comment) => {
-        return comment.source
-    },
+  content: (comment) => {
+    return `${comment.content}`
+  },
 
-    like: (comment) => {
-        return Number(comment.like)
-    },
+  userName: (comment) => {
+    return `${comment.userName}`
+  },
+
+  source: (comment) => {
+    return comment.source
+  },
+
+  like: (comment) => {
+    return Number(comment.like)
+  },
 }

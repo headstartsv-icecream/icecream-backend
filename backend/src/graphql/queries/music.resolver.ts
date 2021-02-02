@@ -43,25 +43,25 @@ export const Query: QueryResolvers = {
 
         const row = rows[+id]
         resolve({
-            id: id,
-            title: row.title,
-            artists: row.artist,
-            searchCount: row.searchCount,
+          id: id,
+          title: row.title,
+          artists: row.artist,
+          searchCount: row.searchCount,
 
-            albumImage: row.albumImage,
-            artistImage: row.artistImage,
-            genres: row.genres,
-            lyrics: row.lyrics,
-            melonLink: row.melonLink,
-            shazamId: row.shazamId,
-            youtubeLink: row.youtubeLink,
-            youtubeImage: row.youtubeImage,
+          albumImage: row.albumImage,
+          artistImage: row.artistImage,
+          genres: row.genres,
+          lyrics: row.lyrics,
+          melonLink: row.melonLink,
+          shazamId: row.shazamId,
+          youtubeLink: row.youtubeLink,
+          youtubeImage: row.youtubeImage,
         })
       })
     })
   },
 
-  musicByTitleArtist: (_, {title, artist}) => {
+  musicByTitleArtist: (_, { title, artist }) => {
     return new Promise((resolve, reject) => {
       connection.query(musicByTitleArtistSQL, (err: Error, row: any, cols: any) => {
         if (err) {
@@ -69,19 +69,19 @@ export const Query: QueryResolvers = {
         }
 
         resolve({
-            id: row.id,
-            title: row.title,
-            artists: row.artist,
-            searchCount: row.searchCount,
+          id: row.id,
+          title: row.title,
+          artists: row.artist,
+          searchCount: row.searchCount,
 
-            albumImage: row.albumImage,
-            artistImage: row.artistImage,
-            genres: row.genres,
-            lyrics: row.lyrics,
-            melonLink: row.melonLink,
-            shazamId: row.shazamId,
-            youtubeLink: row.youtubeLink,
-            youtubeImage: row.youtubeImage,
+          albumImage: row.albumImage,
+          artistImage: row.artistImage,
+          genres: row.genres,
+          lyrics: row.lyrics,
+          melonLink: row.melonLink,
+          shazamId: row.shazamId,
+          youtubeLink: row.youtubeLink,
+          youtubeImage: row.youtubeImage,
         })
       })
     })
