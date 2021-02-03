@@ -1,0 +1,13 @@
+scalar DateTime
+
+type User {
+  id: ID!
+  creationDate: DateTime!
+  email: String!
+  token: String!
+  name: String!
+  age: Int!
+
+  playlist: [Playlist!]
+  likedMusic: [Music!]
+}

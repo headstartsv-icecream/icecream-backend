@@ -1,0 +1,11 @@
+type Mutation {
+  """
+  이메일과 1번 해싱한 비밀번호를 전송하면 인증 토큰을 반환한다.
+  """
+  login(email: String!, passwordHash: String!): String
+
+  """
+  HTTP Header나 쿠키에 인증 토큰 정보를 넣어서 요청하면 로그아웃 성공 여부를 반환한다.
+  """
+  logout: Boolean!
+}

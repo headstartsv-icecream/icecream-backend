@@ -2,18 +2,16 @@ import time
 from selenium import webdriver
 
 
-class ChromeDriver():
+class ChromeDriver:
     def __init__(self, wait_sec=10, headless=True):
         # Setting chrome options
         print("Initialize the chrome webdriver...")
         options = webdriver.ChromeOptions()
 
-        if headless:
-            options.add_argument("headless")
-            options.add_argument("disable-gpu")
-            
-        # options.add_argument("no-sandbox") 왜 주석?
-        options.add_argument("disable-dev-shm-usage")
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
         options.add_argument("window-size=1920x1080")
         options.add_argument(
             "user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
@@ -62,5 +60,3 @@ class ChromeDriver():
         self.driver.execute_script(
             "const getParameter = WebGLRenderingContext.getParameter;WebGLRenderingContext.prototype.getParameter = function(parameter) {if (parameter === 37445) {return 'NVIDIA Corporation'} if (parameter === 37446) {return 'NVIDIA GeForce GTX 980 Ti OpenGL Engine';}return getParameter(parameter);};"
         )
-
-    

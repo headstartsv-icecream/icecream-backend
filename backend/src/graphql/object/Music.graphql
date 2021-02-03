@@ -1,0 +1,37 @@
+type Music {
+  id: ID!
+  creationDate: DateTime!
+  title: String!
+  artists: [String!]!
+  searchCount: Int!
+
+  albumImage: String
+  albumColor: String
+  artistImage: String
+  genres: [String!]
+  lyrics: [String!]
+  melonLink: String
+  shazamId: Int
+  youtubeLink: String
+  youtubeImage: String
+
+  """
+  이 노래를 부른 가수의 다른 노래를 검색 횟수 순으로 반환한다. # 페이지네이션 필요
+  """
+  artistOtherMusics: [Music!]
+
+  """
+  이 노래에 해당하는 댓글 목록을 반환한다. # 페이지네이션 필요
+  """
+  comments: [Comment!]
+
+  """
+  이 노래가 포함된 재생 목록을 반환한다. # 페이지네이션 필요
+  """
+  includedPlaylists: [Playlist!]
+
+  """
+  이 노래와 비슷한 노래 목록을 반환한다. # 페이지네이션 필요
+  """
+  similarMusics: [Music!]
+}

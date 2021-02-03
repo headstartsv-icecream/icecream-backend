@@ -1,8 +1,6 @@
-scalar DateTime
-
-type C {
+type Playlist {
   id: ID!
   creationDate: DateTime!
   name: String!
-  age: Int!
+  musics: [Music!]
 }

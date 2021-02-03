@@ -1,0 +1,18 @@
+enum CrawlingSource {
+  YOUTUBE
+  MELON
+  ICEZAM
+}
+
+type Comment {
+  id: ID!
+  creationDate: DateTime!
+  modificationDate: DateTime!
+
+  writingDate: String!
+  content: String!
+  userName: String!
+  source: CrawlingSource!
+
+  likeCount: Int
+}
