@@ -53,6 +53,14 @@ def find_inforamation(title, singer):
     for i in image:
         image_url.append(i.get('src'))
 
+    str_artist_name = []
+    for i in range(len(artist_name)):
+        str_tmp = str(artist_name[i].text)
+        str_tmp = str_tmp.replace('\n', ' ')
+        str_tmp = str_tmp.replace('\t', '')
+        str_artist_name.append(str_tmp)
+    str_artist_name = ",".join(str_artist_name)
+
     str_lylic = []
     for i in range(len(lylic)):
         str_tmp = str(lylic[i])

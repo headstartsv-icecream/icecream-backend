@@ -2,8 +2,8 @@ import youtube_module
 import melon_module
 import information_module
 
-title = 'Dynamite'
-singer = 'BTS'.replace(' & ',', ')
+title = 'SMILE'
+singer = 'MELOH'.replace(' & ',', ')
 
 html = youtube_module.search_music(title,singer)
 data = youtube_module.find_comment(html,title,singer)
@@ -28,3 +28,17 @@ data3.to_sql(name="music", con=engine, if_exists="append", index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
 connect.close()
+
+conn = pymysql.connect(host='localhost', user='root', password='1234',
+                       db='app', charset='utf8')
+ 
+# Connection 으로부터 Dictoionary Cursor 생성
+curs = conn.cursor(pymysql.cursors.DictCursor)
+ 
+# SQL문 실행
+sql = "update comment c , music m set c.musicID = m.id where c.music = m.title and c.artist = m.artist;"
+curs.execute(sql)
+conn.commit()
+ 
+# Connection 닫기
+conn.close()
