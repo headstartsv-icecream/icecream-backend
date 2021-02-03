@@ -1,39 +1,56 @@
 import { MutationResolvers } from 'src/graphql/generated/graphql'
 import { connection } from '../../database/mysql'
 
-const sql = 'insert into comment (content) values ($1)' // mysql도 이거 맞나?
+const insertCommentSQL = 'insert into comment(userName,content,source) values(?,?,"icezam")' // 수정 필요
+const updateCommentSQL = 'update comment set content=?,modificationDate=now() where id=?'
+const deleteCommentSQL = 'delete from comment where id=?'
 
 export const Mutation: MutationResolvers = {
   createComment: (_, { input }) => {
+    const SQLInsertData = [input.userName, input.content]
     return new Promise((resolve, reject) => {
-      connection.query(sql, (err: Error, row: any, cols: any) => {
-        if (err) {
-          reject(err)
+      connection.query(
+        insertCommentSQL,
+        SQLInsertData,
+        (err: Error | null, row: any, cols: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(true)
         }
-        resolve(true)
-      })
+      )
     })
   },
 
   modifyComment: (_, { input }) => {
+    const SQLUpdateData = [input.content, input.id]
     return new Promise((resolve, reject) => {
-      connection.query(sql, (err: Error, row: any, cols: any) => {
-        if (err) {
-          reject(err)
+      connection.query(
+        updateCommentSQL,
+        SQLUpdateData,
+        (err: Error | null, row: any, cols: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(true)
         }
-        resolve(true)
-      })
+      )
     })
   },
 
   deleteComment: (_, { id }) => {
     return new Promise((resolve, reject) => {
-      connection.query(sql, (err: Error, row: any, cols: any) => {
-        if (err) {
-          reject(err)
+      const SQLDeleteData = [id]
+      connection.query(
+        deleteCommentSQL,
+        SQLDeleteData,
+        (err: Error | null, row: any, cols: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(true)
         }
-        resolve(true)
-      })
+      )
     })
   },
 }

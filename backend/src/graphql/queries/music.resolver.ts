@@ -24,4 +24,14 @@ export const Query: QueryResolvers = {
       })
     })
   },
+
+  musicByTitleArtist: (_, { title, artist }) => {
+    return new Promise((resolve, reject) => {
+      connection.query(commentSQL, (err: Error, rows: any, cols: any) => {
+        if (err) {
+          reject(err)
+        }
+      })
+    })
+  },
 }
