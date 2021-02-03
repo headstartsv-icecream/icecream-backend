@@ -53,22 +53,6 @@ def find_inforamation(title, singer):
     for i in image:
         image_url.append(i.get('src'))
 
-    str_song_name = []
-    for i in range(len(song_name)):
-        str_tmp = str(song_name[i].text)
-        str_tmp = str_tmp.replace('\n', '')
-        str_tmp = str_tmp.replace('\t', '')
-        str_tmp = str_tmp.replace('곡명', '')
-        str_song_name.append(str_tmp)
-
-    str_artist_name = []
-    for i in range(len(artist_name)):
-        str_tmp = str(artist_name[i].text)
-        str_tmp = str_tmp.replace('\n', ' ')
-        str_tmp = str_tmp.replace('\t', '')
-        str_artist_name.append(str_tmp)
-    str_artist_name = ",".join(str_artist_name)
-
     str_lylic = []
     for i in range(len(lylic)):
         str_tmp = str(lylic[i])
@@ -81,7 +65,7 @@ def find_inforamation(title, singer):
 
     print("정보 가져옴")
 
-    pd_data = {"albumImage": image_url, "title": str_song_name, "artist": artist, "Album": album, "ReleaseDate": release_date, "Genre": genre,
+    pd_data = {"albumImage": image_url, "title": title, "artist": singer, "Album": album, "ReleaseDate": release_date, "Genre": genre,
                "lyric": str_lylic, "artistName": str_artist_name}
     information_pd = pd.DataFrame(pd_data)
 
