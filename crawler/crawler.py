@@ -24,7 +24,7 @@ connect = engine.connect()
 
 data.to_sql(name='comment',con=engine, if_exists='append', index=False)
 data2.to_sql(name='comment',con=engine, if_exists='append', index=False)
-data3.to_sql(name="info", con=engine, if_exists="append", index=False)
+data3.to_sql(name="music", con=engine, if_exists="append", index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
 connect.close()
