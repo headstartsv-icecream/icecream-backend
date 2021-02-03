@@ -6,6 +6,7 @@ const musicsSQL = 'select * from music'
 const musicSQL = 'select * from music where id=?'
 const musicByTitleArtistSQL = 'select * from music where title like ? and artist like ?'
 const loadComment = 'select * from comment where musicID=?'
+const loadCommentByMusic = 'select * from comment where music like ? and artist like ?'
 
 const selectSource = function (row: any) {
   switch (row.source) {
@@ -52,7 +53,7 @@ export const Query: QueryResolvers = {
 
   music: (_, { id }) => {
     return new Promise((resolve, reject) => {
-      let a = false
+      let order = false
       let result: any = {}
 
       connection.query(musicSQL, [id], (err: Error | null, rows: any, cols: any) => {
@@ -78,10 +79,10 @@ export const Query: QueryResolvers = {
           youtubeLink: row.youtubeLink,
           youtubeImage: row.youtubeImage,
         }
-        if (a === true) {
+        if (order === true) {
           resolve(result)
         } else {
-          a = true
+          order = true
         }
       })
 
@@ -102,10 +103,10 @@ export const Query: QueryResolvers = {
             source: selectSource(row),
           })),
         }
-        if (a === true) {
+        if (order === true) {
           resolve(result)
         } else {
-          a = true
+          order = true
         }
       })
     })
@@ -114,6 +115,9 @@ export const Query: QueryResolvers = {
   musicByTitleArtist: (_, { title, artist }) => {
     title = '%' + title.replace(' ', '%') + '%'
     return new Promise((resolve, reject) => {
+      let order = false
+      let result: any = {}
+
       connection.query(
         musicByTitleArtistSQL,
         [title, artist],
@@ -123,7 +127,8 @@ export const Query: QueryResolvers = {
           }
 
           const row = rows[0]
-          resolve({
+          result = {
+            ...result,
             id: row.id,
             creationDate: row.creationDate,
             title: row.title,
@@ -138,7 +143,39 @@ export const Query: QueryResolvers = {
             shazamId: row.shazamId,
             youtubeLink: row.youtubeLink,
             youtubeImage: row.youtubeImage,
-          })
+          }
+          if (order === true) {
+            resolve(result)
+          } else {
+            order = true
+          }
+        }
+      )
+      connection.query(
+        loadCommentByMusic,
+        [title, artist],
+        (err: Error | null, rows: any, cols: any) => {
+          if (err) {
+            reject(err)
+          }
+
+          result = {
+            ...result,
+            comments: rows.map((row: any, index: number) => ({
+              id: row.id,
+              creationDate: row.creationDate,
+              modificationDate: row.modificationDate,
+              writingDate: row.writingDate,
+              content: row.content,
+              userName: row.userName,
+              source: selectSource(row),
+            })),
+          }
+          if (order === true) {
+            resolve(result)
+          } else {
+            order = true
+          }
         }
       )
     })
