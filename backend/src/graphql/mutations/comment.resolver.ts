@@ -2,9 +2,9 @@ import { MutationResolvers } from 'src/graphql/generated/graphql'
 import { connection } from '../../database/mysql'
 
 const insertCommentSQL =
-  'insert into comment(userName,content,source,writingDate) values(?,?,"icezam",now())' // writing date 추가 필요
+  'insert into comment(userName,content,source) values(?,?,"icezam")' // writing date 추가 필요
 const updateCommentSQL =
-  'update comment set content=?,modificationDate=now(), writingDate=now(), where id=?'
+  'update comment set content=?, where id=?'
 const deleteCommentSQL = 'delete from comment where id=?'
 
 export const Mutation: MutationResolvers = {
