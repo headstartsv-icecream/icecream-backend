@@ -16,7 +16,7 @@ def crawler_start(title,singer):
     pymysql.install_as_MySQLdb()
     import MySQLdb
 
-    engine = create_engine("mysql://root:"+"1234"+"@localhost/app", encoding='utf-8')
+    engine = create_engine("mysql://root:"+"1234"+"@34.64.111.47/app", encoding='utf-8')
     # "mysql://아이디:"+"비밀번호"+"@mysql주소:포트/DB이름"
 
     connect = engine.connect()
