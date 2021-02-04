@@ -2,7 +2,6 @@ import youtube_module
 import melon_module
 import information_module
 
-<<<<<<< HEAD
 def crawler_start(title,singer):
     html = youtube_module.search_music(title,singer)
     data = youtube_module.find_comment(html,title,singer)
@@ -43,7 +42,7 @@ def crawler_start(title,singer):
     
     # Connection 닫기
     conn.close()
-=======
+
 title = 'All I Wanna Do'
 singer = 'Jay park'
 
@@ -70,4 +69,3 @@ data3.to_sql(name="music", con=engine, if_exists="append", index=False)
 # (name=테이블이름, con=engine, if_exists='append', index=False)
 
 connect.close()
->>>>>>> 2a8010b7021c9740936647cd6ed46afaaf880626
