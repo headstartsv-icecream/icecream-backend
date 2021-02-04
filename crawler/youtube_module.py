@@ -29,15 +29,17 @@ def find_comment(html_source,title,singer):
 
         str_tmp = str(youtube_comments[i].text)
         str_tmp = str_tmp.replace('\n', ' ')
-        str_tmp = str_tmp.replace('\t', '')
+        str_tmp = str_tmp.replace('\r', '')
         str_tmp = str_tmp.strip()
         str_youtube_comments.append(str_tmp)
 
         str_youtube_date.append(str(youtube_date[i].text).replace('(edited)', ''))
 
     print("youtube 가져온 댓글 갯수: ",len(str_youtube_userIDs))
-    pd_data = {"music":title,"artist":singer,"user_id":str_youtube_userIDs, "comment":str_youtube_comments,"writingDate":str_youtube_date, "source":'youtube'}
+    
+    pd_data = {"music":title,"artist":singer,"userName":str_youtube_userIDs, "content":str_youtube_comments,"writingDate":str_youtube_date, "source":'youtube'}
     youtube_pd = pd.DataFrame(pd_data)
+    
     return youtube_pd
 
 

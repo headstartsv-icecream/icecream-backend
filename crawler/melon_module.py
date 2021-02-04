@@ -13,27 +13,6 @@ from common.functions import ChromeDriver
 # Add modules in common/functions.py
 sys.path.append(os.getcwd())
 
-# date 변경
-def exchange_date(date_time):
-    a = datetime.datetime.strptime(date_time,'%Y.%m.%d %H:%M')
-    b = datetime.datetime.today()
-    c = (b-a).total_seconds()
-    if c > 31104000:
-        d = str(int(c//31104000))+' year ago'
-    elif c > 2592000:
-        d = str(int(c//2592000))+' months ago'
-    elif c > 604800:
-        d = str(int(c//604800))+' week ago'
-    elif c > 86400:
-        d = str(int(c//86400))+' days ago'
-    elif c > 3600:
-        d = str(int(c//3600))+' hour ago'
-    elif c > 60:
-        d = str(int(c//60))+' minutes ago'
-    else:
-        d = 'now'
-    return d
-
 def get_data(html_source):
     soup = BeautifulSoup(html_source, 'lxml')
     IDs = soup.select('div.ellipsis > a.thumb.d_cmtpgn_user > span')
@@ -46,7 +25,7 @@ def search_word(title,singer):
 
 def melon_crawling(title,singer):
     driver = ChromeDriver(headless=False).driver
-    
+
     # EC 변수
     wait = WebDriverWait(driver, 3)
     visible = EC.visibility_of_element_located # DOM에 나타남, 웹에 보여야 조건 만족
@@ -110,11 +89,12 @@ def melon_crawling(title,singer):
     for i in range(0,len(melon_date),1):
         str_tmp = str(melon_date[i].text)
         str_tmp = str_tmp.strip()
-        str_tmp = exchange_date(str_tmp)
         str_melon_date.append(str_tmp)
     
     print("melon 가져온 댓글 갯수: ",len(str_melon_userIDs))
-    pd_data = {"music":title,"artist":singer,"user_id":str_melon_userIDs, "comment":str_melon_comments, "writingdate":str_melon_date, "source":'melon'}
+    
+    pd_data = {"music":title,"artist":singer,"userName":str_melon_userIDs, "content":str_melon_comments, "writingDate":str_melon_date, "source":'melon'}
+>>>>>>> b819da3cd8fb34af1f9edc3739cdda8e9b509b4f
     melon_pd = pd.DataFrame(pd_data)
     
     return melon_pd
