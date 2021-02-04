@@ -14,11 +14,6 @@ export const Mutation: MutationResolvers = {
         artists: input.artists ?? [],
         searchCount: 0,
       })
-      // connection.query(sql, (err: Error, row: any, cols: any) => {
-      //   if (err) {
-      //     reject(err)
-      //   }
-      // })
     })
   },
 }
