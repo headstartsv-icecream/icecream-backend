@@ -42,7 +42,7 @@ def find_inforamation(title, singer):
     soup = BeautifulSoup(html_source, 'lxml')
     image = soup.select('div.wrap_info > div.thumb > a.image_typeAll > img')
     song_name = soup.select('div.song_name')
-    artist = soup.select('div.artist > a.artist_name > span')[0].text
+    artist = singer.replace(' & ',', ')
     album = soup.select('div.meta > dl.list > dd > a')[0].text
     release_date = soup.select('div.meta > dl.list > dd')[1].text
     genre = soup.select('div.meta > dl.list > dd')[2].text
@@ -52,14 +52,6 @@ def find_inforamation(title, singer):
     image_url = []
     for i in image:
         image_url.append(i.get('src'))
-
-    str_song_name = []
-    for i in range(len(song_name)):
-        str_tmp = str(song_name[i].text)
-        str_tmp = str_tmp.replace('\n', '')
-        str_tmp = str_tmp.replace('\t', '')
-        str_tmp = str_tmp.replace('곡명', '')
-        str_song_name.append(str_tmp)
 
     str_artist_name = []
     for i in range(len(artist_name)):
@@ -71,13 +63,19 @@ def find_inforamation(title, singer):
 
     str_lylic = []
     for i in range(len(lylic)):
-        str_tmp = str(lylic[i].text)
-        str_tmp = str_tmp.replace('\n', '')
+        str_tmp = str(lylic[i])
+        str_tmp = str_tmp.replace('<div class="lyric" id="d_video_summary"><!-- height:auto; 로 변경시, 확장됨 -->', '')
+        str_tmp = str_tmp.strip('</div>')
+        str_tmp = str_tmp.strip()
+        str_tmp = str_tmp.strip('<br/>')
         str_tmp = str_tmp.replace('\t', '')
         str_lylic.append(str_tmp)
 
-    pd_data = {"image": image_url, "title": str_song_name, "artist": artist, "album": album, "release_date": release_date, "genre": genre,
-               "lylic": str_lylic, "ArtistName": str_artist_name}
+
+    print("정보 가져옴")
+
+    pd_data = {"albumImage": image_url, "title": title, "artist": singer, "Album": album, "ReleaseDate": release_date, "Genre": genre,
+               "lyric": str_lylic, "artistName": str_artist_name}
     information_pd = pd.DataFrame(pd_data)
 
     return information_pd
