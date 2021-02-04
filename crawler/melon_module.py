@@ -94,7 +94,6 @@ def melon_crawling(title,singer):
     print("melon 가져온 댓글 갯수: ",len(str_melon_userIDs))
     
     pd_data = {"music":title,"artist":singer,"userName":str_melon_userIDs, "content":str_melon_comments, "writingDate":str_melon_date, "source":'melon'}
->>>>>>> b819da3cd8fb34af1f9edc3739cdda8e9b509b4f
     melon_pd = pd.DataFrame(pd_data)
     
     return melon_pd

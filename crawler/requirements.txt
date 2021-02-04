@@ -5,6 +5,5 @@ lxml
 pandas
 pymysql
 sqlalchemy
-concurrent
 matplotlib
 numpy
