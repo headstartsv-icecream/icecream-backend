@@ -10,10 +10,10 @@ server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`)
 })
 
-ON_DEATH(() => {
-  try {
-    disconnectMySql()
-  } catch (err) {
-    console.error(err)
-  }
-})
+// ON_DEATH(() => {
+//   try {
+//     disconnectMySql()
+//   } catch (err) {
+//     console.error(err)
+//   }
+// })
