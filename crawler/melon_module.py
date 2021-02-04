@@ -114,7 +114,7 @@ def melon_crawling(title,singer):
         str_melon_date.append(str_tmp)
     
     print("melon 가져온 댓글 갯수: ",len(str_melon_userIDs))
-    pd_data = {"title":title,"artist":singer,"user_id":str_melon_userIDs, "comment":str_melon_comments, "creation_date":str_melon_date, "source":'melon'}
+    pd_data = {"music":title,"artist":singer,"user_id":str_melon_userIDs, "comment":str_melon_comments, "writingdate":str_melon_date, "source":'melon'}
     melon_pd = pd.DataFrame(pd_data)
     
     return melon_pd
